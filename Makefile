@@ -55,7 +55,7 @@ $(NAME): $(OBJS) $(LIB)/$(LIBFT)/$(LIBFT).a
 	@$(CC) $(CFLAGS) $(OBJS) $(LIBFTFLAGS) $(MLXFLAGS) -o $@
 	@printf "$(_GREEN)Finish compiling $(NAME)!$(_END)\n"
 
-$(NAMED): $(OBJSD) $(LIB)/$(LIBFT)/$(LIBFT).a
+$(NAMED): $(OBJSD) $(LIB)/$(LIBFT)/$(LIBFT)_d.a
 	@printf "$(_END)\nCompiled debug source files\n"
 	@$(CC) $(DBFLAGS) $(OBJSD) $(LIBFTFLAGS) $(MLXFLAGS) -o $@
 	@printf "$(_GREEN)Finish compiling in debug mode$(NAMED)!$(_END)\n"
@@ -72,6 +72,9 @@ $(OBJSDIRD)%.o:	$(SRCDIR)%.c
 
 $(LIB)/$(LIBFT)/$(LIBFT).a: FORCE
 	@$(MAKE) -C $(LIB)/$(LIBFT)
+
+$(LIB)/$(LIBFT)/$(LIBFT)_d.a: FORCE
+	@$(MAKE) debug -C $(LIB)/$(LIBFT)
 FORCE:;
 
 clean:	header
@@ -87,7 +90,7 @@ fclean:	clean
 
 re:		header fclean all
 
-debug:	header libd
+debug:	header
 debug:	$(NAMED)
 
 print-%:	; @echo $* = $($*)

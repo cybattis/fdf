@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:33:14 by cybattis          #+#    #+#             */
-/*   Updated: 2022/01/12 16:00:56 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/01/12 20:08:00 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ typedef struct s_data {
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+	int		width;
+	int		height;
 }	t_data;
 
 /* colors.c */
@@ -41,6 +43,6 @@ int		add_shade(double distance, int trgb);
 
 /* draw.c */
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
-void	clear_screen(t_data frame, int color);
+void	clear_screen(t_data *frame, int color);
 
 #endif

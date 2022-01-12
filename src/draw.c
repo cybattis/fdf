@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 15:56:16 by cybattis          #+#    #+#             */
-/*   Updated: 2022/01/12 16:08:49 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/01/12 20:22:12 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,18 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-// void	clear_screen(t_data frame, int color)
-// {
+void	clear_screen(t_data *frame, int color)
+{
+	int	i;
+	int	total;
+	int	bytes_pp;
 
-// }
+	i = 0;
+	total = frame->width * frame->height;
+	bytes_pp = frame->bits_per_pixel / 8;
+	while (i < total)
+	{
+		*((unsigned int *)(frame->addr + i * bytes_pp)) = color;
+		i++;
+	}
+}
