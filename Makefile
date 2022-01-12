@@ -12,24 +12,27 @@
 
 NAME 		=	fdf
 NAMED 		=	fdf_d
+LIB			=	lib
 LIBFT		=	libft
+MINILIBX	=	mlx_linux
 
 # Config
 # ****************************************************************************
 
-CC 			=	gcc
-INCLUDE		=	-I libft/includes
-
-CFLAGS		=	-Wall -Wextra -O2 -MMD $(HDFLAGS)
+CC 			=	gcc -std=c11
+CFLAGS		=	-Wall -Werror -Wextra -O2 -MMD $(INCLUDE)
 DBFLAGS		=	$(CFLAGS) -g3 -fsanitize=address
-HDFLAGS		=	$(INCLUDE)
-LIBFLAGS	=	-L$(LIBFT) -lft
+
+LIBFTFLAGS	=	-L $(LIB)/$(LIBFT) -lft
+MLXFLAGS	=	$(LIB)/libmlx_Linux.a -L/usr/X11/lib -Imlx_linux -lXext -lX11 -lm -lz
+
+INCLUDE		=	-I $(LIB)/$(LIBFT)/includes -I includes
 
 # Source files
 # ****************************************************************************
 
 SRCDIR		=	src/
-SRCSFILE	=	fdf.c
+SRCSFILE	=	fdf.c colors.c draw.c
 
 SRCS		=	$(addprefix $(SRCDIR), $(SRCSFILE))
 
@@ -39,11 +42,23 @@ OBJS		=	$(addprefix $(OBJSDIR), $(notdir $(SRCS:.c=.o)))
 OBJSDIRD	=	objd/
 OBJSD		=	$(addprefix $(OBJSDIRD), $(notdir $(SRCS:.c=.o)))
 
-DEPENDSD	=	$(OBJSD:.o=.d)
 DEPENDS		=	$(OBJS:.o=.d)
+DEPENDSD	=	$(OBJSD:.o=.d)
 
 # Recipe
 # ****************************************************************************
+
+all:	$(NAME)
+
+$(NAME): $(OBJS) $(LIB)/$(LIBFT)/$(LIBFT).a
+	@printf "$(_END)\nCompiled source files\n"
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBFTFLAGS) $(MLXFLAGS) -o $@
+	@printf "$(_GREEN)Finish compiling $(NAME)!$(_END)\n"
+
+$(NAMED): $(OBJSD) $(LIB)/$(LIBFT)/$(LIBFT).a
+	@printf "$(_END)\nCompiled debug source files\n"
+	@$(CC) $(DBFLAGS) $(OBJSD) $(LIBFTFLAGS) $(MLXFLAGS) -o $@
+	@printf "$(_GREEN)Finish compiling in debug mode$(NAMED)!$(_END)\n"
 
 $(OBJSDIR)%.o:	$(SRCDIR)%.c
 	@mkdir -p $(OBJSDIR)
@@ -55,37 +70,22 @@ $(OBJSDIRD)%.o:	$(SRCDIR)%.c
 	@$(CC) $(DBFLAGS) -c $< -o $@
 	@printf "$(_GREEN)█$(_END)"
 
-$(NAME):	lib
-$(NAME): 	$(OBJS)
-	@printf "$(_END)\nCompiled source files\n"
-	@$(CC) $(CFLAGS) $(OBJS) $(LIBFLAGS) -o $@
-	@printf "$(_GREEN)Finish compiling $(NAME)!$(_END)\n"
-
-$(NAMED): 	libd
-$(NAMED): 	$(OBJSD)
-	@printf "$(_END)\nCompiled debug source files\n"
-	@$(CC) $(DBFLAGS) $(OBJSD) $(LIBFLAGS) -o $@
-	@printf "$(_GREEN)Finish compiling in debug mode$(NAMED)!$(_END)\n"
-
-all:	header $(NAME)
+$(LIB)/$(LIBFT)/$(LIBFT).a: FORCE
+	@$(MAKE) -C $(LIB)/$(LIBFT)
+FORCE:;
 
 clean:	header
 	@printf "$(_YELLOW)Removing object files ...$(_END)\n"
+	@make clean -C $(LIB)/$(LIBFT)
 	@rm -rf $(OBJSDIR) $(OBJSDIRD)
 	@rm -fr *.dSYM
 
 fclean:	clean
 	@printf "$(_RED)Removing Executable ...$(_END)\n"
-	@make fclean -C $(LIBFT)
+	@make fclean -C $(LIB)/$(LIBFT)
 	@rm -rf $(NAME) $(NAMED)
 
 re:		header fclean all
-
-lib:
-	@make -C $(LIBFT)
-
-libd:
-	@make debug -C $(LIBFT)
 
 debug:	header libd
 debug:	$(NAMED)
@@ -93,9 +93,8 @@ debug:	$(NAMED)
 print-%:	; @echo $* = $($*)
 
 -include $(DEPENDS)
--include $(DEPENDSD)
 
-.PHONY: all clean fclean re debug header stress start
+.PHONY: all clean fclean re debug header
 
 header:
 	@printf "\n"

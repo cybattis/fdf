@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.c                                              :+:      :+:    :+:   */
+/*   colors2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/12 12:38:47 by cybattis          #+#    #+#             */
-/*   Updated: 2022/01/12 16:10:38 by cybattis         ###   ########.fr       */
+/*   Created: 2022/01/12 15:30:19 by cybattis          #+#    #+#             */
+/*   Updated: 2022/01/12 15:30:28 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	main(void)
+int	add_shade(double distance, int trgb)
 {
-	void	*mlx;
-	void	*mlx_win;
-	t_data	frame;
+	print_color(trgb);
+	trgb *= distance;
+	print_color(trgb);
+	return (trgb);
+}
 
-	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, WIN_W, WIN_H, "FdF");
-	frame.img = mlx_new_image(mlx, WIN_W, WIN_H);
-	frame.addr = mlx_get_data_addr(frame.img, &frame.bits_per_pixel,
-			&frame.line_length, &frame.endian);
-	// clear_screen(frame, create_trgb(0, 50, 50, 50));
-	mlx_put_image_to_window(mlx, mlx_win, frame.img, 0, 0);
-	mlx_loop(mlx);
+int	get_opposite(int trgb)
+{
+	return (trgb ^ 0x7fffffff);
 }

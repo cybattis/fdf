@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.c                                              :+:      :+:    :+:   */
+/*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/12 12:38:47 by cybattis          #+#    #+#             */
-/*   Updated: 2022/01/12 16:10:38 by cybattis         ###   ########.fr       */
+/*   Created: 2022/01/12 15:56:16 by cybattis          #+#    #+#             */
+/*   Updated: 2022/01/12 16:08:49 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	main(void)
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
-	void	*mlx;
-	void	*mlx_win;
-	t_data	frame;
+	char	*dst;
 
-	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, WIN_W, WIN_H, "FdF");
-	frame.img = mlx_new_image(mlx, WIN_W, WIN_H);
-	frame.addr = mlx_get_data_addr(frame.img, &frame.bits_per_pixel,
-			&frame.line_length, &frame.endian);
-	// clear_screen(frame, create_trgb(0, 50, 50, 50));
-	mlx_put_image_to_window(mlx, mlx_win, frame.img, 0, 0);
-	mlx_loop(mlx);
+	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	*(unsigned int *)dst = color;
 }
+
+// void	clear_screen(t_data frame, int color)
+// {
+
+// }
