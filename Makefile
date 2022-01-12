@@ -32,7 +32,7 @@ INCLUDE		=	-I $(LIB)/$(LIBFT)/includes -I includes
 # ****************************************************************************
 
 SRCDIR		=	src/
-SRCSFILE	=	fdf.c colors.c draw.c
+SRCSFILE	=	fdf.c colors.c colors2.c draw.c utils.c
 
 SRCS		=	$(addprefix $(SRCDIR), $(SRCSFILE))
 

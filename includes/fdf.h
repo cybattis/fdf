@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:33:14 by cybattis          #+#    #+#             */
-/*   Updated: 2022/01/12 20:08:00 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/01/12 23:43:19 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,14 @@
 # define WIN_W	960
 # define WIN_H	540
 
-typedef struct s_data {
+# define ESC	65307
+
+typedef struct s_vars {
+	void	*mlx;
+	void	*win;
+}	t_vars;
+
+typedef struct s_frame {
 	void	*img;
 	char	*addr;
 	int		bits_per_pixel;
@@ -28,7 +35,17 @@ typedef struct s_data {
 	int		endian;
 	int		width;
 	int		height;
-}	t_data;
+}	t_frame;
+
+void	init_frame(t_vars *vars, t_frame *frame);
+
+/* draw.c */
+void	my_mlx_pixel_put(t_frame *data, int x, int y, int color);
+void	clear_screen(t_frame *frame, int color);
+
+/* hooks.c.c */
+int		key_hook(int keycode, t_vars *vars);
+int		close_win(t_vars *vars);
 
 /* colors.c */
 int		create_trgb(int t, int r, int g, int b);
@@ -41,8 +58,7 @@ int		get_b(int trgb);
 int		get_opposite(int trgb);
 int		add_shade(double distance, int trgb);
 
-/* draw.c */
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
-void	clear_screen(t_data *frame, int color);
+/* utils.c */
+int		print_color(int trgb);
 
 #endif
