@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:33:14 by cybattis          #+#    #+#             */
-/*   Updated: 2022/01/12 23:43:19 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/01/13 12:54:42 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@
 # include "mlx.h"
 # include <math.h>
 
-# define WIN_W	960
-# define WIN_H	540
+# define WIN_W		960
+# define WIN_H		540
 
-# define ESC	65307
+# define KEY_Q		12
+# define KEY_ESC	53
 
 typedef struct s_vars {
 	void	*mlx;

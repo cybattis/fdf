@@ -14,7 +14,7 @@ NAME 		=	fdf
 NAMED 		=	fdf_d
 LIB			=	lib
 LIBFT		=	libft
-MINILIBX	=	mlx_linux
+MINILIBX	=	mlx
 
 # Config
 # ****************************************************************************
@@ -24,9 +24,10 @@ CFLAGS		=	-Wall -Werror -Wextra -O2 -MMD $(INCLUDE)
 DBFLAGS		=	$(CFLAGS) -g3 -fsanitize=address
 
 LIBFTFLAGS	=	-L $(LIB)/$(LIBFT) -lft
-MLXFLAGS	=	$(LIB)/libmlx_Linux.a -L/usr/X11/lib -Imlx_linux -lXext -lX11 -lm -lz
+MLXFLAGS	=	-L $(LIB)/mlx -lmlx -framework OpenGL -framework AppKit
+# MLXFLAGS_LX	=	-L $(LIB)/minilibx -lmlx -L/usr/X11/lib -Imlx_linux -lXext -lX11 -lm -lz
 
-INCLUDE		=	-I $(LIB)/$(LIBFT)/includes -I includes
+INCLUDE		=	-I $(LIB)/$(LIBFT)/includes -I includes -I $(LIB)/mlx
 
 # Source files
 # ****************************************************************************

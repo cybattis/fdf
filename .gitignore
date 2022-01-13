@@ -1,6 +1,7 @@
 obj*
 fdf
 mlx_linux
+lib/mlx/
 
 # Prerequisites
 *.d
