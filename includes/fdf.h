@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:33:14 by cybattis          #+#    #+#             */
-/*   Updated: 2022/01/13 12:54:42 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/01/13 14:15:21 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef struct s_vars {
 typedef struct s_frame {
 	void	*img;
 	char	*addr;
-	int		bits_per_pixel;
+	int		bits_pp;
 	int		line_length;
 	int		endian;
 	int		width;
@@ -39,9 +39,10 @@ typedef struct s_frame {
 }	t_frame;
 
 void	init_frame(t_vars *vars, t_frame *frame);
+void	draw_frame(t_vars *vars, t_frame *frame);
 
 /* draw.c */
-void	my_mlx_pixel_put(t_frame *data, int x, int y, int color);
+void	mlx_pixel_put_img(t_frame *data, int x, int y, int color);
 void	clear_screen(t_frame *frame, int color);
 
 /* hooks.c.c */

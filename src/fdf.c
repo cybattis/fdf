@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:38:47 by cybattis          #+#    #+#             */
-/*   Updated: 2022/01/13 13:15:17 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/01/13 14:16:32 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,29 @@ int	main(void)
 	vars.mlx = mlx_init();
 	vars.win = mlx_new_window(vars.mlx, WIN_W, WIN_H, "FdF");
 	init_frame(&vars, &frame);
-	mlx_put_image_to_window(vars.mlx, vars.win, frame.img, 0, 0);
+	draw_frame(&vars, &frame);
 	mlx_key_hook(vars.win, key_hook, &vars);
 	mlx_loop(vars.mlx);
 	return (0);
 }
 
-void	init_frame(t_vars *mlx, t_frame *frame)
+void	init_frame(t_vars *vars, t_frame *frame)
 {
-	frame->img = mlx_new_image(mlx->mlx, WIN_W, WIN_H);
-	frame->addr = mlx_get_data_addr(frame->img, &frame->bits_per_pixel,
+	frame->img = mlx_new_image(vars->mlx, WIN_W, WIN_H);
+	frame->addr = mlx_get_data_addr(frame->img, &frame->bits_pp,
 			&frame->line_length, &frame->endian);
 	frame->width = WIN_W;
 	frame->height = WIN_H;
+}
+
+void	draw_frame(t_vars *vars, t_frame *frame)
+{
+	int	i;
+
+	i = 0;
 	clear_screen(frame, create_trgb(0, 55, 70, 75));
+	mlx_put_image_to_window(vars->mlx, vars->win, frame->img, 0, 0);
+	while (i < 10)
+		mlx_pixel_put_img(frame, 50, 50, create_trgb(0, 255, 255, 255));
+	mlx_put_image_to_window(vars->mlx, vars->win, frame->img, 0, 0);
 }
