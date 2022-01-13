@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:38:47 by cybattis          #+#    #+#             */
-/*   Updated: 2022/01/13 14:16:32 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/01/13 17:48:18 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,12 @@ void	init_frame(t_vars *vars, t_frame *frame)
 void	draw_frame(t_vars *vars, t_frame *frame)
 {
 	int	i;
+	t_vec2	p1 = {50, 50};
+	t_vec2	p2 = {150, 150};
 
 	i = 0;
 	clear_screen(frame, create_trgb(0, 55, 70, 75));
 	mlx_put_image_to_window(vars->mlx, vars->win, frame->img, 0, 0);
-	while (i < 10)
-		mlx_pixel_put_img(frame, 50, 50, create_trgb(0, 255, 255, 255));
+	draw_line(frame, p1, p2, create_trgb(0, 255, 255, 255));
 	mlx_put_image_to_window(vars->mlx, vars->win, frame->img, 0, 0);
 }

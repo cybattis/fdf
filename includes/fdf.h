@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:33:14 by cybattis          #+#    #+#             */
-/*   Updated: 2022/01/13 14:15:21 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/01/13 17:12:41 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	draw_frame(t_vars *vars, t_frame *frame);
 /* draw.c */
 void	mlx_pixel_put_img(t_frame *data, int x, int y, int color);
 void	clear_screen(t_frame *frame, int color);
+void	draw_line(t_frame *frame, t_vec2 p1, t_vec2 p2, int color);
 
 /* hooks.c.c */
 int		key_hook(int keycode, t_vars *vars);
