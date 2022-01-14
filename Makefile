@@ -19,13 +19,17 @@ MINILIBX	=	mlx
 # Config
 # ****************************************************************************
 
-CC 			=	gcc -std=c11
+CC 			=	gcc
 CFLAGS		=	-Wall -Werror -Wextra -O2 -MMD $(INCLUDE)
 DBFLAGS		=	$(CFLAGS) -g3 -fsanitize=address
-
 LIBFTFLAGS	=	-L $(LIB)/$(LIBFT) -lft
-MLXFLAGS	=	-L $(LIB)/mlx -lmlx -framework OpenGL -framework AppKit
-# MLXFLAGS_LX	=	-L $(LIB)/minilibx -lmlx -L/usr/X11/lib -Imlx_linux -lXext -lX11 -lm -lz
+
+OS			=	$(shell uname -s)
+ifeq ($(OS), Linux)
+	MLXFLAGS	=	-L $(LIB)/minilibx -lmlx -L/usr/X11/lib -Imlx_linux -lXext -lX11 -lm -lz
+else
+	MLXFLAGS	=	-L $(LIB)/mlx -lmlx -framework OpenGL -framework AppKit
+endif
 
 INCLUDE		=	-I $(LIB)/$(LIBFT)/includes -I includes -I $(LIB)/mlx
 
@@ -33,7 +37,7 @@ INCLUDE		=	-I $(LIB)/$(LIBFT)/includes -I includes -I $(LIB)/mlx
 # ****************************************************************************
 
 SRCDIR		=	src/
-SRCSFILE	=	fdf.c colors.c colors2.c draw.c utils.c
+SRCSFILE	=	fdf.c colors.c colors2.c draw.c utils.c hooks.c
 
 SRCS		=	$(addprefix $(SRCDIR), $(SRCSFILE))
 

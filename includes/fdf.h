@@ -6,13 +6,14 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:33:14 by cybattis          #+#    #+#             */
-/*   Updated: 2022/01/13 17:12:41 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/01/14 18:09:55 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 
+# include <stdio.h>
 # include "libft.h"
 # include "mlx.h"
 # include <math.h>
@@ -20,8 +21,14 @@
 # define WIN_W		960
 # define WIN_H		540
 
-# define KEY_Q		12
-# define KEY_ESC	53
+
+# ifdef __linux__
+#  define KEY_Q		0x71
+#  define KEY_ESC	0xff1b
+# else
+#  define KEY_Q		12
+#  define KEY_ESC	53
+# endif
 
 typedef struct s_vars {
 	void	*mlx;
@@ -63,5 +70,5 @@ int		add_shade(double distance, int trgb);
 
 /* utils.c */
 int		print_color(int trgb);
-
+void	print_vec2(t_vec2 v);
 #endif

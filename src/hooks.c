@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/12 15:27:01 by cybattis          #+#    #+#             */
-/*   Updated: 2022/01/14 18:02:24 by cybattis         ###   ########.fr       */
+/*   Created: 2022/01/14 17:57:26 by cybattis          #+#    #+#             */
+/*   Updated: 2022/01/14 17:57:37 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	print_color(int trgb)
+int	key_hook(int keycode, t_vars *vars)
 {
-	ft_dprintf(2, "Color:%x | t:%d r:%d g:%d b:%d\n", trgb,
-		get_t(trgb), get_r(trgb), get_g(trgb), get_b(trgb));
+	printf("keycode:%d\n", keycode);
+	if (keycode == KEY_Q || keycode == KEY_ESC)
+		close_win(vars);
 	return (0);
 }
 
-void	print_vec2(t_vec2 v)
+int	close_win(t_vars *vars)
 {
-	dprintf(2, "[%f, %f]\n", v.x, v.y);
+	mlx_destroy_window(vars->mlx, vars->win);
+	exit(EXIT_SUCCESS);
+	return (0);
 }
