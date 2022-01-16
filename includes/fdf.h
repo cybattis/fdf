@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:33:14 by cybattis          #+#    #+#             */
-/*   Updated: 2022/01/16 23:54:07 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/01/17 00:39:31 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include <fcntl.h>
 # include "libft.h"
 # include "mlx.h"
-
 
 # define WIN_W		960
 # define WIN_H		540
@@ -57,7 +56,8 @@ t_vec3	**parsing_map(int argc, char **argv, int size);
 int		get_matrix_size(char *path);
 
 /* draw.c */
-void	draw_frame(t_vars *vars, t_frame *frame);
+void	draw_frame(t_vars *vars, t_frame *frame, t_vec3 **map, int size);
+void	draw_map(t_frame *frame, t_vec3 **map, int size);
 void	mlx_pixel_put_img(t_frame *frame, int x, int y, int color);
 void	clear_screen(t_frame *frame, int color);
 
