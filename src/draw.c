@@ -6,18 +6,27 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 15:56:16 by cybattis          #+#    #+#             */
-/*   Updated: 2022/01/14 23:45:48 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/01/16 19:43:22 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	mlx_pixel_put_img(t_frame *frame, t_vec2 p, int color)
+void	draw_frame(t_vars *vars, t_frame *frame)
+{
+	clear_screen(frame, create_trgb(0, 55, 70, 75));
+	mlx_put_image_to_window(vars->mlx, vars->win, frame->img, 0, 0);
+	draw_circle(frame, vec3(WIN_W / 2, WIN_H / 2, 1), 5, WHITE);
+	draw_line(frame, vec2(200, 5), vec2(50, 150), WHITE);
+	mlx_put_image_to_window(vars->mlx, vars->win, frame->img, 0, 0);
+}
+
+void	mlx_pixel_put_img(t_frame *frame, int x, int y, int color)
 {
 	char	*dst;
 
 	dst = frame->addr
-		+ ((int)p.y * frame->line_length + (int)p.x * (frame->bits_pp / 8));
+		+ (y * frame->line_length + x * (frame->bits_pp / 8));
 	*(unsigned int *)dst = color;
 }
 

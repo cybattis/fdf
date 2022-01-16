@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.c                                              :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/12 12:38:47 by cybattis          #+#    #+#             */
-/*   Updated: 2022/01/14 23:24:15 by cybattis         ###   ########.fr       */
+/*   Created: 2022/01/16 18:35:28 by cybattis          #+#    #+#             */
+/*   Updated: 2022/01/16 18:35:30 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,4 @@ void	init_frame(t_vars *vars, t_frame *frame)
 			&frame->line_length, &frame->endian);
 	frame->width = WIN_W;
 	frame->height = WIN_H;
-}
-
-void	draw_frame(t_vars *vars, t_frame *frame)
-{
-	t_vec2	p2 = {200, 5};
-	t_vec2	p1 = {50, 150};
-
-	clear_screen(frame, create_trgb(0, 55, 70, 75));
-	mlx_put_image_to_window(vars->mlx, vars->win, frame->img, 0, 0);
-	mlx_pixel_put_img(frame, p1.x, p1.y, WHITE);
-	mlx_pixel_put_img(frame, p2.x, p2.y, WHITE);
-	draw_line(frame, p1, p2, WHITE);
-	mlx_put_image_to_window(vars->mlx, vars->win, frame->img, 0, 0);
 }

@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:33:14 by cybattis          #+#    #+#             */
-/*   Updated: 2022/01/14 23:25:36 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/01/16 18:37:22 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 # define FDF_H
 
 # include <stdio.h>
+# include <math.h>
 # include "libft.h"
 # include "mlx.h"
-# include <math.h>
 
 # define WIN_W		960
 # define WIN_H		540
@@ -46,15 +46,19 @@ typedef struct s_frame {
 	int		height;
 }	t_frame;
 
+/* main.c */
 void	init_frame(t_vars *vars, t_frame *frame);
-void	draw_frame(t_vars *vars, t_frame *frame);
 
 /* draw.c */
-void	mlx_pixel_put_img(t_frame *frame, t_vec2 p, int color);
+void	draw_frame(t_vars *vars, t_frame *frame);
+void	mlx_pixel_put_img(t_frame *frame, int x, int y, int color);
 void	clear_screen(t_frame *frame, int color);
+
+/* draw_line.c */
 void	draw_line(t_frame *frame, t_vec2 p1, t_vec2 p2, int color);
-void	draw_line_high(t_frame *frame, t_vec2 p1, t_vec2 p2, int color);
-void	draw_line_low(t_frame *frame, t_vec2 p1, t_vec2 p2, int color);
+
+/* draw_circle.c */
+void	draw_circle(t_frame *frame, t_vec3 origin, int r, int color);
 
 /* hooks.c.c */
 int		key_hook(int keycode, t_vars *vars);

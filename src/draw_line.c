@@ -6,11 +6,14 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 21:04:26 by cybattis          #+#    #+#             */
-/*   Updated: 2022/01/14 23:13:13 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/01/16 18:33:55 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+static void	draw_line_low(t_frame *frame, t_vec2 v1, t_vec2 v2, int color);
+static void	draw_line_high(t_frame *frame, t_vec2 v1, t_vec2 v2, int color);
 
 void	draw_line(t_frame *frame, t_vec2 v1, t_vec2 v2, int color)
 {
@@ -30,11 +33,11 @@ void	draw_line(t_frame *frame, t_vec2 v1, t_vec2 v2, int color)
 	}
 }
 
-void	draw_line_low(t_frame *frame, t_vec2 v1, t_vec2 v2, int color)
+static void	draw_line_low(t_frame *frame, t_vec2 v1, t_vec2 v2, int color)
 {
+	t_vec2	d;
 	int		m;
 	int		dir;
-	t_vec2	d;
 
 	d = vec2(v2.x - v1.x, v2.y - v1.y);
 	dir = 1;
@@ -57,11 +60,11 @@ void	draw_line_low(t_frame *frame, t_vec2 v1, t_vec2 v2, int color)
 	}
 }
 
-void	draw_line_high(t_frame *frame, t_vec2 v1, t_vec2 v2, int color)
+static void	draw_line_high(t_frame *frame, t_vec2 v1, t_vec2 v2, int color)
 {
+	t_vec2	d;
 	int		m;
 	int		dir;
-	t_vec2	d;
 
 	d = vec2(v2.x - v1.x, v2.y - v1.y);
 	dir = 1;
