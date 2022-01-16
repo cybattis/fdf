@@ -23,6 +23,7 @@ CC 			=	gcc
 CFLAGS		=	-Wall -Werror -Wextra -O2 -MMD $(INCLUDE)
 DBFLAGS		=	$(CFLAGS) -g3 -fsanitize=address
 LIBFTFLAGS	=	-L $(LIB)/$(LIBFT) -lft
+LIBFTFLAGSD	=	-L $(LIB)/$(LIBFT) -lft_d
 
 OS			=	$(shell uname -s)
 ifeq ($(OS), Linux)
@@ -37,7 +38,8 @@ INCLUDE		=	-I $(LIB)/$(LIBFT)/includes -I includes -I $(LIB)/mlx
 # ****************************************************************************
 
 SRCDIR		=	src/
-SRCSFILE	=	main.c colors.c colors2.c draw.c draw_line.c draw_circle.c utils.c hooks.c
+SRCSFILE	=	main.c colors.c colors2.c draw.c draw_line.c draw_circle.c utils.c hooks.c	\
+				parsing.c
 
 SRCS		=	$(addprefix $(SRCDIR), $(SRCSFILE))
 
@@ -62,7 +64,7 @@ $(NAME): $(OBJS) $(LIB)/$(LIBFT)/$(LIBFT).a
 
 $(NAMED): $(OBJSD) $(LIB)/$(LIBFT)/$(LIBFT)_d.a
 	@printf "$(_END)\nCompiled debug source files\n"
-	@$(CC) $(DBFLAGS) $(OBJSD) $(LIBFTFLAGS) $(MLXFLAGS) -o $@
+	@$(CC) $(DBFLAGS) $(OBJSD) $(LIBFTFLAGSD) $(MLXFLAGS) -o $@
 	@printf "$(_GREEN)Finish compiling in debug mode$(NAMED)!$(_END)\n"
 
 $(OBJSDIR)%.o:	$(SRCDIR)%.c

@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:33:14 by cybattis          #+#    #+#             */
-/*   Updated: 2022/01/16 18:37:22 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/01/16 23:54:07 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,13 @@
 # define FDF_H
 
 # include <stdio.h>
+# include <string.h>
+# include <errno.h>
 # include <math.h>
+# include <fcntl.h>
 # include "libft.h"
 # include "mlx.h"
+
 
 # define WIN_W		960
 # define WIN_H		540
@@ -49,6 +53,9 @@ typedef struct s_frame {
 /* main.c */
 void	init_frame(t_vars *vars, t_frame *frame);
 
+t_vec3	**parsing_map(int argc, char **argv, int size);
+int		get_matrix_size(char *path);
+
 /* draw.c */
 void	draw_frame(t_vars *vars, t_frame *frame);
 void	mlx_pixel_put_img(t_frame *frame, int x, int y, int color);
@@ -77,5 +84,12 @@ int		add_shade(double distance, int trgb);
 
 /* utils.c */
 int		print_color(int trgb);
+void	ft_ferror(int fd);
+void	free_matrix(t_vec3 **map, size_t i);
+void	ft_print_map(t_vec3 **matrix, int size);
+
+/* ++++++++++ cheat_func ++++++++++ */
 void	print_vec2(t_vec2 v);
+void	print_vec3(t_vec3 v);
+
 #endif

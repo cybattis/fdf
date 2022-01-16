@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 15:27:01 by cybattis          #+#    #+#             */
-/*   Updated: 2022/01/14 18:02:24 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/01/16 23:53:56 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,45 @@ int	print_color(int trgb)
 	return (0);
 }
 
+void	ft_ferror(int fd)
+{
+	if (fd < 0)
+	{
+		ft_dprintf(2, "Error: %s\n", strerror(errno));
+		exit(EXIT_FAILURE);
+	}
+}
+
+void	free_matrix(t_vec3 **map, size_t i)
+{
+	while (i)
+		free(map[i--]);
+	free(map[i]);
+	free(map);
+}
+
+void	ft_print_map(t_vec3 **matrix, int size)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < size)
+	{
+		j = 0;
+		while (j < size)
+			ft_dprintf(2, "%3d ", (int)matrix[i][j++].z);
+		ft_dprintf(2, "\n");
+		i++;
+	}
+}
+
 void	print_vec2(t_vec2 v)
 {
 	dprintf(2, "[%f, %f]\n", v.x, v.y);
+}
+
+void	print_vec3(t_vec3 v)
+{
+	dprintf(2, "[%f, %f, %f]\n", v.x, v.y, v.z);
 }
