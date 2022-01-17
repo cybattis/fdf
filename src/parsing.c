@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 19:47:37 by cybattis          #+#    #+#             */
-/*   Updated: 2022/01/16 23:51:00 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/01/17 12:05:48 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,28 @@
 
 static t_vec3	*parse_line(char *line, int size, int i);
 
-t_vec3	**parsing_map(int argc, char **argv, int size)
+t_vec3	**map_parsing(char *path, int size)
 {
 	int		i;
 	char	*line;
 	int		fd;
 	t_vec3	**map;
 
-	if (argc == 2)
+	fd = open(path, O_RDONLY);
+	ft_ferror(fd);
+	i = 0;
+	map = malloc(sizeof(t_vec3 *) * size + 1);
+	line = ft_get_next_line(fd);
+	while (line != NULL)
 	{
-		fd = open(argv[1], O_RDONLY);
-		ft_ferror(fd);
-		i = 0;
-		map = malloc(sizeof(t_vec3 *) * size + 1);
+		map[i] = parse_line(line, size, i);
+		i++;
 		line = ft_get_next_line(fd);
-		while (line != NULL)
-		{
-			map[i] = parse_line(line, size, i);
-			i++;
-			line = ft_get_next_line(fd);
-		}
-		close(fd);
-		return (map);
 	}
-	ft_dprintf(2, "Error: wrong number of arguments\nUsage: ./fdf map_path\n");
-	exit(EXIT_FAILURE);
+	close(fd);
+	return (map);
+
+
 }
 
 static t_vec3	*parse_line(char *line, int size, int i)
@@ -55,29 +52,34 @@ static t_vec3	*parse_line(char *line, int size, int i)
 		exit(EXIT_FAILURE);
 	while (j < size)
 	{
-		map_line[j] = vec3(i, j, ft_atoi(line_split[j]));
+		map_line[j] = vec3(j, i, ft_atoi(line_split[j]));
 		j++;
 	}
 	ft_free_all(line_split, size);
 	return (map_line);
 }
 
-int	get_matrix_size(char *path)
+int	get_matrix_size(int argc, char *path)
 {
 	char	*line;
 	int		size;
 	int		fd;
 
-	size = 0;
-	fd = open(path, O_RDONLY);
-	ft_ferror(fd);
-	line = ft_get_next_line(fd);
-	while (line)
+	if (argc == 2)
 	{
-		size++;
-		free(line);
+		size = 0;
+		fd = open(path, O_RDONLY);
+		ft_ferror(fd);
 		line = ft_get_next_line(fd);
+		while (line)
+		{
+			size++;
+			free(line);
+			line = ft_get_next_line(fd);
+		}
+		close(fd);
+		return (size);
 	}
-	close(fd);
-	return (size);
+	ft_dprintf(2, "Error: wrong number of arguments\nUsage: ./fdf map_path\n");
+	exit(EXIT_FAILURE);
 }

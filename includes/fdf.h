@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:33:14 by cybattis          #+#    #+#             */
-/*   Updated: 2022/01/17 00:39:31 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/01/17 12:38:51 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,10 @@
 # endif
 
 # define WHITE		0x00FFFFFF
+# define RED		0x00FF0000
+
+# define OX		(WIN_W / 2)
+# define OY		(WIN_H / 2)
 
 typedef struct s_vars {
 	void	*mlx;
@@ -52,8 +56,13 @@ typedef struct s_frame {
 /* main.c */
 void	init_frame(t_vars *vars, t_frame *frame);
 
-t_vec3	**parsing_map(int argc, char **argv, int size);
-int		get_matrix_size(char *path);
+/* map.c */
+t_vec3	**init_map(char *path, int size);
+void	map_offset(t_vec3 **map, int size);
+
+/* parsing.c */
+t_vec3	**map_parsing(char *path, int size);
+int		get_matrix_size(int argc, char *path);
 
 /* draw.c */
 void	draw_frame(t_vars *vars, t_frame *frame, t_vec3 **map, int size);

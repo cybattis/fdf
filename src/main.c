@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 18:35:28 by cybattis          #+#    #+#             */
-/*   Updated: 2022/01/17 00:41:18 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/01/17 11:16:01 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,17 @@ int	main(int argc, char *argv[])
 	t_vars	vars;
 	t_frame	frame;
 
-	map_size = get_matrix_size(argv[1]);
-	map = parsing_map(argc, argv, map_size);
-	ft_print_map(map, map_size);
+	map_size = get_matrix_size(argc, argv[1]);
+	map = init_map(argv[1], map_size);
+
 	vars.mlx = mlx_init();
 	vars.win = mlx_new_window(vars.mlx, WIN_W, WIN_H, "FdF");
+
 	init_frame(&vars, &frame);
 	draw_frame(&vars, &frame, map, map_size);
 	mlx_key_hook(vars.win, key_hook, &vars);
 	mlx_loop(vars.mlx);
+
 	free_matrix(map, map_size - 1);
 	return (0);
 }
