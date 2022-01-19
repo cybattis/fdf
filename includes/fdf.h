@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:33:14 by cybattis          #+#    #+#             */
-/*   Updated: 2022/01/17 12:38:51 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/01/19 13:58:13 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@
 
 # define WHITE		0x00FFFFFF
 # define RED		0x00FF0000
+# define GREEN		0x0000FF00
+# define BLUE		0x000000FF
 
 # define OX		(WIN_W / 2)
 # define OY		(WIN_H / 2)
@@ -55,6 +57,9 @@ typedef struct s_frame {
 
 /* main.c */
 void	init_frame(t_vars *vars, t_frame *frame);
+
+t_vec3	*matrix_mult(t_vec3 v, t_vec3 *projection);
+t_vec3	*rotation_x(t_vec3 v, double angle);
 
 /* map.c */
 t_vec3	**init_map(char *path, int size);

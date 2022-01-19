@@ -27,7 +27,7 @@ LIBFTFLAGSD	=	-L $(LIB)/$(LIBFT) -lft_d
 
 OS			=	$(shell uname -s)
 ifeq ($(OS), Linux)
-	MLXFLAGS	=	-L $(LIB)/minilibx -lmlx -L/usr/X11/lib -Imlx_linux -lXext -lX11 -lm -lz
+	MLXFLAGS	=	-L $(LIB) -lmlx -L/usr/X11/lib -Imlx_linux -lXext -lX11 -lm -lz
 else
 	MLXFLAGS	=	-L $(LIB)/mlx -lmlx -framework OpenGL -framework AppKit
 endif
@@ -38,8 +38,8 @@ INCLUDE		=	-I $(LIB)/$(LIBFT)/includes -I includes -I $(LIB)/mlx
 # ****************************************************************************
 
 SRCDIR		=	src/
-SRCSFILE	=	main.c colors.c colors2.c draw.c draw_line.c draw_circle.c utils.c hooks.c	\
-				parsing.c map.c
+SRCSFILE	=	main.c colors.c colors2.c draw.c draw_line.c draw_circle.c utils.c	\
+				hooks.c	parsing.c map.c projection.c
 
 SRCS		=	$(addprefix $(SRCDIR), $(SRCSFILE))
 

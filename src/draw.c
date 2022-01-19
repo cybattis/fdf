@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 15:56:16 by cybattis          #+#    #+#             */
-/*   Updated: 2022/01/17 11:27:37 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/01/19 13:46:43 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@ void	draw_frame(t_vars *vars, t_frame *frame, t_vec3 **map, int size)
 
 void	draw_map(t_frame *frame, t_vec3 **map, int size)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
+	t_vec3	*p;
 
 	i = 0;
 	while (i < size)
@@ -33,7 +34,8 @@ void	draw_map(t_frame *frame, t_vec3 **map, int size)
 		j = 0;
 		while (j < size)
 		{
-			mlx_pixel_put_img(frame, map[i][j].x, map[i][j].y, WHITE);
+			p = rotation_x(map[i][j], 0.03);
+			mlx_pixel_put_img(frame, p->x, p->y, WHITE);
 			j++;
 		}
 		i++;
