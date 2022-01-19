@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 11:01:31 by cybattis          #+#    #+#             */
-/*   Updated: 2022/01/17 12:38:46 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/01/19 18:44:26 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,32 @@ t_vec3	**init_map(char *path, int size)
 	map_offset(map, size);
 	ft_print_map(map, size);
 	return (map);
+}
+
+void	update_map(t_vec3 **map, int size)
+{
+	int		i;
+	int		j;
+	t_vec3	p;
+	t_vec3	r;
+
+	i = 0;
+	while (i < size)
+	{
+		j = 0;
+		while (j < size)
+		{
+			r = rotation_x(&map[i][j], 0);
+			ft_printf("Vector R\n");
+			print_vec3(r);
+			p = projection_2d(r);
+			ft_printf("Vector P\n");
+			print_vec3(p);
+			map[i][j] = p;
+			j++;
+		}
+		i++;
+	}
 }
 
 void	map_offset(t_vec3 **map, int size)

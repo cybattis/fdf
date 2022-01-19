@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 18:35:28 by cybattis          #+#    #+#             */
-/*   Updated: 2022/01/17 11:16:01 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/01/19 18:27:19 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 int	main(int argc, char *argv[])
 {
 	size_t	map_size;
-	t_vec3	**map;
 	t_vars	vars;
 	t_frame	frame;
+	t_vec3	**map;
 
 	map_size = get_matrix_size(argc, argv[1]);
 	map = init_map(argv[1], map_size);

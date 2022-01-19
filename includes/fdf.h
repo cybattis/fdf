@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:33:14 by cybattis          #+#    #+#             */
-/*   Updated: 2022/01/19 13:58:13 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/01/19 18:37:36 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,15 @@ typedef struct s_frame {
 /* main.c */
 void	init_frame(t_vars *vars, t_frame *frame);
 
-t_vec3	*matrix_mult(t_vec3 v, t_vec3 *projection);
-t_vec3	*rotation_x(t_vec3 v, double angle);
+t_vec3	projection_2d(t_vec3 v);
+t_vec3	matrix_mult(t_vec3 *v, t_vec3 *projection);
+t_vec3	rotation_x(t_vec3 *v, double angle);
+t_vec3	rotation_y(t_vec3 *v, double angle);
+t_vec3	rotation_z(t_vec3 *v, double angle);
 
 /* map.c */
 t_vec3	**init_map(char *path, int size);
+void	update_map(t_vec3 **map, int size);
 void	map_offset(t_vec3 **map, int size);
 
 /* parsing.c */
@@ -76,7 +80,7 @@ void	mlx_pixel_put_img(t_frame *frame, int x, int y, int color);
 void	clear_screen(t_frame *frame, int color);
 
 /* draw_line.c */
-void	draw_line(t_frame *frame, t_vec2 p1, t_vec2 p2, int color);
+void	draw_line(t_frame *frame, t_vec3 p1, t_vec3 p2, int color);
 
 /* draw_circle.c */
 void	draw_circle(t_frame *frame, t_vec3 origin, int r, int color);

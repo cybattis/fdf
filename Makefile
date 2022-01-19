@@ -20,7 +20,7 @@ MINILIBX	=	mlx
 # ****************************************************************************
 
 CC 			=	gcc
-CFLAGS		=	-Wall -Werror -Wextra -O2 -MMD $(INCLUDE)
+CFLAGS		=	-Wall -Wextra -O2 -MMD $(INCLUDE)
 DBFLAGS		=	$(CFLAGS) -g3 -fsanitize=address
 LIBFTFLAGS	=	-L $(LIB)/$(LIBFT) -lft
 LIBFTFLAGSD	=	-L $(LIB)/$(LIBFT) -lft_d
