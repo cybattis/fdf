@@ -6,64 +6,42 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 13:22:00 by cybattis          #+#    #+#             */
-/*   Updated: 2022/01/19 18:22:57 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/01 23:08:33 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-t_vec3	projection_2d(t_vec3 v)
+t_vec4	ortho_projection_matrix(void)
 {
-	t_vec3	rx[3];
-
-	rx[0] = vec3(1.0, 0.0, 0.0);
-	rx[1] = vec3(0.0, 1.0, 0.0);
-	rx[2] = vec3(0.0, 0.0, 0.0);
-	return (matrix_mult(&v, rx));
 }
 
-t_vec3	rotation_x(t_vec3 *v, double angle)
+t_vec4	rotation_x_matrix(double angle)
 {
-	t_vec3	rx[3];
-
-	rx[0] = vec3(1.0, 0.0, 0.0);
-	rx[1] = vec3(0.0, cos(angle), -sin(angle));
-	rx[2] = vec3(0.0, sin(angle), cos(angle));
-	return (matrix_mult(v, rx));
 }
 
-t_vec3	rotation_y(t_vec3 *v, double angle)
+t_vec4	rotation_y_matrix(double angle)
 {
-	t_vec3	rx[3];
-
-	rx[0] = vec3(cos(angle), 0.0, sin(angle));
-	rx[1] = vec3(0.0, 1.0, 0.0);
-	rx[2] = vec3(-sin(angle), 0.0, cos(angle));
-	return (matrix_mult(v, rx));
 }
 
-t_vec3	rotation_z(t_vec3 *v, double angle)
+t_vec4	rotation_z_matrix(double angle)
 {
-	t_vec3	rx[3];
-
-	rx[0] = vec3(cos(angle), -sin(angle), 0.0);
-	rx[1] = vec3(sin(angle), cos(angle), 0.0);
-	rx[2] = vec3(0.0, 0.0, 1.0);
-	return (matrix_mult(v, rx));
 }
 
-t_vec3	matrix_mult(t_vec3 *v, t_vec3 *projection)
+t_vec4	*matrix_multv4(const t_vec4 *v, double **m)
 {
-	t_vec3	r;
-	t_vec3	*px;
-	t_vec3	*py;
-	t_vec3	*pz;
+	float	w;
+	t_vec3	*dst;
 
-	px = vec3_multv3(&projection[0], *v);
-	r.x = px->x + px->y + px->z;
-	py = vec3_multv3(&projection[1], *v);
-	r.y = py->x + py->y + py->z;
-	pz = vec3_multv3(&projection[2], *v);
-	r.z = pz->x + pz->y + pz->z;
-	return (r);
+	dst->x = v->x * m[0][0] + v->y * m[1][0] + v->z * m[2][0] + m[3][0];
+	dst->y = v->x * m[0][1] + v->y * m[1][1] + v->z * m[2][1] + m[3][1];
+	dst->z = v->x * m[0][2] + v->y * m[1][2] + v->z * m[2][2] + m[3][2];
+	w = v->x * m[0][3] + v->y * m[1][3] + v->z * m[2][3] + m[3][3];
+	if (w != 1)
+	{
+		dst->x /= w;
+		dst->y /= w;
+		dst->z /= w;
+	}
+	return (dst);
 }

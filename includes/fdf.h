@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:33:14 by cybattis          #+#    #+#             */
-/*   Updated: 2022/01/19 18:37:36 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/01 23:09:22 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,15 @@ typedef struct s_frame {
 	int		height;
 }	t_frame;
 
+t_vec4	*matrix_multv4(const t_vec4 *v, double **m);
+
 /* main.c */
 void	init_frame(t_vars *vars, t_frame *frame);
 
-t_vec3	projection_2d(t_vec3 v);
-t_vec3	matrix_mult(t_vec3 *v, t_vec3 *projection);
-t_vec3	rotation_x(t_vec3 *v, double angle);
-t_vec3	rotation_y(t_vec3 *v, double angle);
-t_vec3	rotation_z(t_vec3 *v, double angle);
+t_vec4	ortho_projection_matrix(void);
+t_vec4	rotation_x_matrix(double angle);
+t_vec4	rotation_y_matrix(double angle);
+t_vec4	rotation_z_matrix(double angle);
 
 /* map.c */
 t_vec3	**init_map(char *path, int size);

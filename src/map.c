@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 11:01:31 by cybattis          #+#    #+#             */
-/*   Updated: 2022/01/19 18:44:26 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/01 23:11:02 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,7 @@ void	update_map(t_vec3 **map, int size)
 		j = 0;
 		while (j < size)
 		{
-			r = rotation_x(&map[i][j], 0);
-			ft_printf("Vector R\n");
-			print_vec3(r);
-			p = projection_2d(r);
+			p = matrix_multv4();
 			ft_printf("Vector P\n");
 			print_vec3(p);
 			map[i][j] = p;
