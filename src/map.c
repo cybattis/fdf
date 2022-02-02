@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 11:01:31 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/01 23:11:02 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/02 23:18:44 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,18 @@ t_vec3	**init_map(char *path, int size)
 {
 	t_vec3	**map;
 
+	// TODO: redo parsing
 	map = map_parsing(path, size);
-	map_offset(map, size);
+	// map_offset(map, size);
 	ft_print_map(map, size);
 	return (map);
 }
 
+//TODO: get new function name
 void	update_map(t_vec3 **map, int size)
 {
 	int		i;
 	int		j;
-	t_vec3	p;
-	t_vec3	r;
 
 	i = 0;
 	while (i < size)
@@ -35,10 +35,8 @@ void	update_map(t_vec3 **map, int size)
 		j = 0;
 		while (j < size)
 		{
-			p = matrix_multv4();
-			ft_printf("Vector P\n");
-			print_vec3(p);
-			map[i][j] = p;
+			// make dot product
+			map[i][j];
 			j++;
 		}
 		i++;

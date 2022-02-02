@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:33:14 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/01 23:09:22 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/02 23:17:53 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@
 # define WIN_H		540
 
 # ifdef __linux__
-#  define KEY_Q		0x71
+#  define KEY_Q		0x71	// for ANSI
 #  define KEY_ESC	0xff1b
 # else
-#  define KEY_Q		12
+#  define KEY_Q		12		// for ANSI
 #  define KEY_ESC	53
 # endif
 
@@ -37,8 +37,8 @@
 # define GREEN		0x0000FF00
 # define BLUE		0x000000FF
 
-# define OX		(WIN_W / 2)
-# define OY		(WIN_H / 2)
+# define OX (WIN_W / 2)
+# define OY	(WIN_H / 2)
 
 typedef struct s_vars {
 	void	*mlx;
@@ -60,10 +60,10 @@ t_vec4	*matrix_multv4(const t_vec4 *v, double **m);
 /* main.c */
 void	init_frame(t_vars *vars, t_frame *frame);
 
-t_vec4	ortho_projection_matrix(void);
-t_vec4	rotation_x_matrix(double angle);
-t_vec4	rotation_y_matrix(double angle);
-t_vec4	rotation_z_matrix(double angle);
+double	**ortho_projection_matrix(void);
+double	**rotation_x_matrix(double angle);
+double	**rotation_y_matrix(double angle);
+double	**rotation_z_matrix(double angle);
 
 /* map.c */
 t_vec3	**init_map(char *path, int size);
