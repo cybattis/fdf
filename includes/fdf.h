@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:33:14 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/02 23:17:53 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/03 15:56:39 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,15 @@
 # define GREEN		0x0000FF00
 # define BLUE		0x000000FF
 
-# define OX (WIN_W / 2)
-# define OY	(WIN_H / 2)
-
 typedef struct s_vars {
 	void	*mlx;
 	void	*win;
 }	t_vars;
+
+typedef struct s_vertex {
+	t_vec3	v;
+	int		color;
+}	t_vertex;
 
 typedef struct s_frame {
 	void	*img;
@@ -55,15 +57,18 @@ typedef struct s_frame {
 	int		height;
 }	t_frame;
 
-t_vec4	*matrix_multv4(const t_vec4 *v, double **m);
+t_vec3	*matrix_multv3(const t_vec3 *v, double **m);
+double 	**matrix_multm4(double **m, double **out);
 
 /* main.c */
 void	init_frame(t_vars *vars, t_frame *frame);
 
-double	**ortho_projection_matrix(void);
-double	**rotation_x_matrix(double angle);
-double	**rotation_y_matrix(double angle);
-double	**rotation_z_matrix(double angle);
+/* matrix.c */
+void	translation_matrix(double **m, t_vec3 translation);
+void	scale_matrix(double **m, t_vec3 scale);
+void	rotation_x_matrix(double **m, double angle);
+void	rotation_y_matrix(double **m, double angle);
+void	rotation_z_matrix(double **m, double angle);
 
 /* map.c */
 t_vec3	**init_map(char *path, int size);

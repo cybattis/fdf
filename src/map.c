@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 11:01:31 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/02 23:18:44 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/03 14:59:18 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,30 +39,6 @@ void	update_map(t_vec3 **map, int size)
 			map[i][j];
 			j++;
 		}
-		i++;
-	}
-}
-
-void	map_offset(t_vec3 **map, int size)
-{
-	int		i;
-	int		j;
-	t_vec3	d;
-	t_vec3	offset;
-
-	i = 0;
-	d = vec3(35, 35, 0);
-	offset = vec3(OX - ((size - 1) * d.x / 2), OY - ((size - 1) * d.y / 2), 0);
-	while (i < size)
-	{
-		j = 0;
-		while (j < size)
-		{
-			vec3_add(&map[i][j], offset);
-			offset.x += d.x;
-			j++;
-		}
-		vec3_add(&offset, vec3(-d.x * size, d.y, 0));
 		i++;
 	}
 }
