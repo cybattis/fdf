@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:33:14 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/04 20:14:51 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/04 23:15:20 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@
 # define RED		0x00FF0000
 # define GREEN		0x0000FF00
 # define BLUE		0x000000FF
-
-# define PI			3.14159265
 
 typedef struct s_vars {
 	void	*mlx;
