@@ -6,13 +6,13 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 15:30:19 by cybattis          #+#    #+#             */
-/*   Updated: 2022/01/12 15:30:28 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/04 10:29:20 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	add_shade(double distance, int trgb)
+int	add_shade(float distance, int trgb)
 {
 	print_color(trgb);
 	trgb *= distance;

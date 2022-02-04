@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 15:27:01 by cybattis          #+#    #+#             */
-/*   Updated: 2022/01/16 23:53:56 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/04 17:29:18 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,17 @@ void	print_vec2(t_vec2 v)
 void	print_vec3(t_vec3 v)
 {
 	dprintf(2, "[%f, %f, %f]\n", v.x, v.y, v.z);
+}
+
+void	print_matrix44(t_matrix44f m)
+{
+	int	i;
+
+	i = 0;
+	while (i < 4)
+	{
+		dprintf(1, "[%3f, %3f, %3f, %3f]\n",
+			m[i][0], m[i][1], m[i][2], m[i][3]);
+		i++;
+	}
 }

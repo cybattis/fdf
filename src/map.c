@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 11:01:31 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/03 14:59:18 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/04 13:19:53 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_vec3	**init_map(char *path, int size)
 	// TODO: redo parsing
 	map = map_parsing(path, size);
 	// map_offset(map, size);
-	ft_print_map(map, size);
+	//ft_print_map(map, size);
 	return (map);
 }
 

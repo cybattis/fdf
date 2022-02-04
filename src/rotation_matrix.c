@@ -6,58 +6,61 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 15:49:06 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/03 16:32:22 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/04 18:12:16 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static double	**rotation_x_matrix(double **m, double angle);
-static double	**rotation_y_matrix(double **m, double angle);
-static double	**rotation_z_matrix(double **m, double angle);
+static void		rotation_x_matrix(t_matrix *matrix, float angle);
+static void		rotation_y_matrix(t_matrix *matrix, float angle);
+static void		rotation_z_matrix(t_matrix *matrix, float angle);
 
-void	rotation_matrix(t_vec3 v, t_vec3 angle)
+void	rotation_matrix(t_matrix *p_x, t_vec3 angle)
 {
-	ft_memset(m, 0, sizeof(memset));
+	t_matrix	rotx;
+	t_matrix	roty;
+	t_matrix	rotz;
+	t_matrix	p_zy;
 
+	ft_memset(p_zy.m, 0, sizeof(t_matrix));
+	ft_memset(p_x->m, 0, sizeof(t_matrix));
+	rotation_x_matrix(&rotx, angle.x);
+	rotation_y_matrix(&roty, angle.y);
+	rotation_z_matrix(&rotz, angle.z);
+	matrix_mult44(rotz.m, roty.m, p_zy.m);
+	matrix_mult44(p_zy.m, rotx.m, p_x->m);
 }
 
-static double	**rotation_x_matrix(t_vec3 v, double angle)
+static void	rotation_x_matrix(t_matrix *matrix, float angle)
 {
-	double	m[4][4];
-
-	ft_memset(m, 0, sizeof(memset));
-	m[0][0] = 1;
-	m[1][1] = cos(angle);
-	m[1][2] = sin(angle);
-	m[2][1] = -sin(angle);
-	m[2][2] = cos(angle);
-	m[3][3] = 1;
-	return (matrix_multm4());
+	ft_memset(matrix, 0, sizeof(t_matrix));
+	matrix->m[0][0] = 1;
+	matrix->m[1][1] = cos(angle * (PI / 180));
+	matrix->m[1][2] = sin(angle * (PI / 180));
+	matrix->m[2][1] = -sin(angle * (PI / 180));
+	matrix->m[2][2] = cos(angle * (PI / 180));
+	matrix->m[3][3] = 1;
 }
 
-static double	**rotation_y_matrix(t_vec3 v, double angle)
+static void	rotation_y_matrix(t_matrix *matrix, float angle)
 {
-	double	m[4][4];
-
-	ft_memset(m, 0, sizeof(memset));
-	m[0][0] = cos(angle);
-	m[0][2] = -sin(angle);
-	m[1][1] = 1;
-	m[2][0] = sin(angle);
-	m[2][2] = cos(angle);
-	m[3][3] = 1;
+	ft_memset(matrix, 0, sizeof(t_matrix));
+	matrix->m[0][0] = cos(angle * (PI / 180));
+	matrix->m[0][2] = -sin(angle * (PI / 180));
+	matrix->m[1][1] = 1;
+	matrix->m[2][0] = sin(angle * (PI / 180));
+	matrix->m[2][2] = cos(angle * (PI / 180));
+	matrix->m[3][3] = 1;
 }
 
-static double	**rotation_z_matrix(t_vec3 v, double angle)
+static void	rotation_z_matrix(t_matrix *matrix, float angle)
 {
-	double	m[4][4];
-
-	ft_memset(m, 0, sizeof(memset));
-	m[0][0] = cos(angle);
-	m[0][1] = sin(angle);
-	m[1][0] = -sin(angle);
-	m[1][1] = cos(angle);
-	m[2][2] = 1;
-	m[3][3] = 1;
+	ft_memset(matrix, 0, sizeof(t_matrix));
+	matrix->m[0][0] = cos(angle * (PI / 180));
+	matrix->m[0][1] = sin(angle * (PI / 180));
+	matrix->m[1][0] = -sin(angle * (PI / 180));
+	matrix->m[1][1] = cos(angle * (PI / 180));
+	matrix->m[2][2] = 1;
+	matrix->m[3][3] = 1;
 }

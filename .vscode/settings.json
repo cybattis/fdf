@@ -1,6 +1,7 @@
 {
 	"files.associations": {
 		"*.rsn": "rust",
-		"fdf.h": "c"
+		"fdf.h": "c",
+		"cmath": "c"
 	}
 }
