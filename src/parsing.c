@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 19:47:37 by cybattis          #+#    #+#             */
-/*   Updated: 2022/01/17 12:05:48 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/04 19:59:10 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ static t_vec3	*parse_line(char *line, int size, int i);
 
 t_vec3	**map_parsing(char *path, int size)
 {
-	int		i;
-	char	*line;
-	int		fd;
-	t_vec3	**map;
+	int			i;
+	char		*line;
+	int			fd;
+	t_vertex	**map;
 
 	fd = open(path, O_RDONLY);
 	ft_ferror(fd);
@@ -34,25 +34,23 @@ t_vec3	**map_parsing(char *path, int size)
 	}
 	close(fd);
 	return (map);
-
-
 }
 
 static t_vec3	*parse_line(char *line, int size, int i)
 {
-	char	**line_split;
-	t_vec3	*map_line;
-	int		j;
+	t_vertex	*map_line;
+	char		**line_split;
+	int			j;
 
 	j = 0;
 	line_split = ft_split(line, ' ');
 	free(line);
-	map_line = malloc(sizeof(t_vec3) * (size + 1));
+	map_line = malloc(sizeof(t_vertex) * (size + 1));
 	if (!map_line)
 		exit(EXIT_FAILURE);
 	while (j < size)
 	{
-		map_line[j] = vec3(j, i, ft_atoi(line_split[j]));
+		// map_line[j] = vec3(j, i, ft_atoi(line_split[j]));
 		j++;
 	}
 	ft_free_all(line_split, size);

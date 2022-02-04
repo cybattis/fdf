@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:33:14 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/04 18:23:10 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/04 20:14:51 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ typedef struct s_vertex {
 }	t_vertex;
 
 typedef struct s_world {
-	t_vec3	scale;
-	t_vec3	angle;
+	float	scale;
+	t_vec3	rotation;
 	t_vec3	translation;
 }	t_world;
 
@@ -69,7 +69,7 @@ typedef struct s_frame {
 void		init_frame(t_vars *vars, t_frame *frame);
 
 /* matrix.c */
-void		transformation_matrix(t_vec3 v, t_vec3 angle, t_matrix *p_x);
+void		world_matrix(t_world w, t_matrix *world_projection);
 void		rotation_matrix(t_matrix *p_x, t_vec3 angle);
 
 /* map.c */
