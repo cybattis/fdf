@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 17:32:25 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/05 19:11:18 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/06 00:30:36 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static t_vertex	*parse_line(char *line, t_vec2 size, int i)
 		map_line[j].color = parse_color(line_split[j]);
 		j++;
 	}
-	ft_free_all(line_split, size.x);
+	ft_free_all(line_split, size.y);
 	return (map_line);
 }
 
@@ -89,7 +89,7 @@ static int	parse_color(char *str)
 	while (str[w])
 	{
 		if (str[w] == 'x')
-			return (ft_atoi_base(str[w + 1], "0123456789ABCDEF"));
+			return (ft_atoi_base(&str[w + 1], "0123456789ABCDEF"));
 		w++;
 	}
 	return (0);
@@ -105,17 +105,17 @@ static void	get_matrix_size(char *path, t_vec2 *size)
 	fd = open(path, O_RDONLY);
 	ft_ferror(fd);
 	line = ft_get_next_line(fd);
-	if (!line)
-		ft_error_msg("map file empty");
-	prev_size = 0;
-	while (line)
+	while (line != NULL)
 	{
 		i = 0;
+		prev_size = 0;
 		while (line[i])
-			size->x++;
-		if (size->y > 0 && size->x != prev_size)
-			ft_error_msg("lines width not equal");
-		prev_size = size->x;
+		{
+			if (ft_isdigit(line[i]))
+				prev_size++;
+			i++;
+		}
+		size->x = prev_size;
 		size->y++;
 		free(line);
 		line = ft_get_next_line(fd);

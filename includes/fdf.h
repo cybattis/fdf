@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:33:14 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/05 18:42:39 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/05 23:51:08 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,6 @@ int			print_color(int trgb);
 void		ft_print_map(t_map map);
 void		print_vec2(t_vec2 v);
 void		print_vec3(t_vec3 v);
-void		print_matrix44(t_matrix44f m);
+void		print_matrix44(float m[][4]);
 
 #endif
