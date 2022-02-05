@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 15:56:16 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/01 14:06:19 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/04 23:50:56 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	draw_frame(t_vars *vars, t_frame *frame, t_vec3 **map, int size)
 {
 	clear_screen(frame, create_trgb(0, 55, 70, 75));
 	mlx_put_image_to_window(vars->mlx, vars->win, frame->img, 0, 0);
-	// draw_circle(frame, vec3(OX, OY, 1), 1, RED);
+	draw_circle(frame, vec3(WIN_W / 2, WIN_H / 2, 1), 5, RED);
 	update_map(map, size);
 	draw_map(frame, map, size);
 	mlx_put_image_to_window(vars->mlx, vars->win, frame->img, 0, 0);

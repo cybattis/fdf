@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:33:14 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/04 23:15:20 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/05 18:42:39 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,23 @@ typedef struct s_vars {
 	void	*win;
 }	t_vars;
 
-typedef struct s_vertex {
-	t_vec3	vt;
+typedef struct s_vextex {
+	float	x;
+	float	y;
+	float	z;
 	int		color;
 }	t_vertex;
 
-typedef struct s_world {
+typedef struct s_map {
+	t_vertex	**v;
+	t_vec2		size;
+}	t_map;
+
+typedef struct s_transform {
 	float	scale;
 	t_vec3	rotation;
 	t_vec3	translation;
-}	t_world;
+}	t_transform;
 
 typedef struct s_frame {
 	void	*img;
@@ -67,17 +74,14 @@ typedef struct s_frame {
 void		init_frame(t_vars *vars, t_frame *frame);
 
 /* matrix.c */
-void		world_matrix(t_world w, t_matrix *world_projection);
+void		model_to_view_matrix(t_transform w, t_vec3 eye_dist);
+/* rotation_matrix.c */
 void		rotation_matrix(t_matrix *p_x, t_vec3 angle);
 
-/* map.c */
-t_vec3		**init_map(char *path, int size);
-void		update_map(t_vec3 **map, int size);
-void		map_offset(t_vec3 **map, int size);
+/* map_parsing.c */
+t_map		*get_map(int argc, char *path);
 
-/* parsing.c */
-t_vec3		**map_parsing(char *path, int size);
-int			get_matrix_size(int argc, char *path);
+void		update_map(t_vec3 **map, int size);
 
 /* draw.c */
 void		draw_frame(t_vars *vars, t_frame *frame, t_vec3 **map, int size);
@@ -107,12 +111,13 @@ int			get_opposite(int trgb);
 int			add_shade(float distance, int trgb);
 
 /* utils.c */
-int			print_color(int trgb);
 void		ft_ferror(int fd);
-void		free_matrix(t_vec3 **map, size_t i);
-void		ft_print_map(t_vec3 **matrix, int size);
+void		ft_error_msg(char *msg);
+void		free_matrix(t_map *map, int i);
 
-/* ++++++++++ hors_norm ++++++++++ */
+/* utils_print.c */
+int			print_color(int trgb);
+void		ft_print_map(t_map map);
 void		print_vec2(t_vec2 v);
 void		print_vec3(t_vec3 v);
 void		print_matrix44(t_matrix44f m);
