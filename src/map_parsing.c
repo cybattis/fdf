@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 17:32:25 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/06 00:30:36 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/06 10:37:36 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_map	*get_map(int argc, char *path)
 		ft_print_map(*map);
 		return (map);
 	}
-	ft_dprintf(2, "Error: wrong number of arguments\nUsage: ./fdf [map_path]\n");
+	ft_dprintf(2, "Error: wrong number of arguments\nUsage: ./fdf [map]\n");
 	exit(EXIT_FAILURE);
 }
 
@@ -77,7 +77,7 @@ static t_vertex	*parse_line(char *line, t_vec2 size, int i)
 		map_line[j].color = parse_color(line_split[j]);
 		j++;
 	}
-	ft_free_all(line_split, size.y);
+	ft_free_all(line_split, size.x);
 	return (map_line);
 }
 
@@ -89,7 +89,7 @@ static int	parse_color(char *str)
 	while (str[w])
 	{
 		if (str[w] == 'x')
-			return (ft_atoi_base(&str[w + 1], "0123456789ABCDEF"));
+			return (ft_atoi_base(&str[w + 1], "0123456789abcdef"));
 		w++;
 	}
 	return (0);
@@ -109,11 +109,12 @@ static void	get_matrix_size(char *path, t_vec2 *size)
 	{
 		i = 0;
 		prev_size = 0;
-		while (line[i])
+		while (line[i++])
 		{
-			if (ft_isdigit(line[i]))
+			if (line[i] == ' ')
 				prev_size++;
-			i++;
+			while (line[i] == ' ')
+				i++;
 		}
 		size->x = prev_size;
 		size->y++;
