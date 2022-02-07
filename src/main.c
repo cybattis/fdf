@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 18:35:28 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/05 18:43:43 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/06 11:37:00 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,12 @@ int	main(int argc, char *argv[])
 
 	vars.mlx = mlx_init();
 	vars.win = mlx_new_window(vars.mlx, WIN_W, WIN_H, "FdF");
-
 	init_frame(&vars, &frame);
-	//draw_frame(&vars, &frame, map);
-	mlx_key_hook(vars.win, key_hook, &vars);
+
+	draw_frame(&vars, &frame, map);
+
+	mlx_key_hook(vars.win, movement, &w);
+	mlx_key_hook(vars.win, quit_program, &vars);
 	mlx_loop(vars.mlx);
 
 	free_matrix(map, map->size.y - 1);

@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:33:14 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/05 23:51:08 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/06 11:33:45 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,27 @@
 # define WIN_H		540
 
 # ifdef __linux__
+#  define KEY_SPACE	0x20
+#  define KEY_F		0x66
+#  define KEY_P		0x70
 #  define KEY_Q		0x71	// for ANSI
 #  define KEY_ESC	0xff1b
+#  define KEY_LEFT	0xff51
+#  define KEY_UP	0xff52
+#  define KEY_RIGHT	0xff53
+#  define KEY_DOWN	0xff54
+#  define KEY_F3	0xffc0
 # else
+#  define KEY_SPACE
+#  define KEY_F
+#  define KEY_P
 #  define KEY_Q		12		// for ANSI
 #  define KEY_ESC	53
+#  define KEY_LEFT
+#  define KEY_UP
+#  define KEY_RIGHT
+#  define KEY_DOWN
+#  define KEY_F3
 # endif
 
 # define WHITE		0x00FFFFFF
@@ -75,6 +91,7 @@ void		init_frame(t_vars *vars, t_frame *frame);
 
 /* matrix.c */
 void		model_to_view_matrix(t_transform w, t_vec3 eye_dist);
+
 /* rotation_matrix.c */
 void		rotation_matrix(t_matrix *p_x, t_vec3 angle);
 
@@ -84,20 +101,20 @@ t_map		*get_map(int argc, char *path);
 void		update_map(t_vec3 **map, int size);
 
 /* draw.c */
-void		draw_frame(t_vars *vars, t_frame *frame, t_vec3 **map, int size);
-void		draw_map(t_frame *frame, t_vec3 **map, int size);
+void		draw_frame(t_vars *vars, t_frame *frame, t_map *map);
+void		draw_map(t_frame *frame, t_map *map);
 void		mlx_pixel_put_img(t_frame *frame, int x, int y, int color);
 void		clear_screen(t_frame *frame, int color);
 
 /* draw_line.c */
-void		draw_line(t_frame *frame, t_vec3 p1, t_vec3 p2, int color);
+void		draw_line(t_frame *frame, t_vertex p1, t_vertex p2, int color);
 
 /* draw_circle.c */
 void		draw_circle(t_frame *frame, t_vec3 origin, int r, int color);
 
 /* hooks.c.c */
-int			key_hook(int keycode, t_vars *vars);
-int			close_win(t_vars *vars);
+int			quit_program(int keycode, t_vars *vars);
+int			movement(int keycode, t_transform w);
 
 /* colors.c */
 int			create_trgb(int t, int r, int g, int b);

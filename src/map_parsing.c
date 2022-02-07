@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 17:32:25 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/06 10:37:36 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/06 11:08:34 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,11 @@ static t_vertex	*parse_line(char *line, t_vec2 size, int i)
 {
 	t_vertex	*map_line;
 	char		**line_split;
+	int			off_set;
 	int			j;
 
 	j = 0;
+	off_set = 0;
 	line_split = ft_split(line, ' ');
 	free(line);
 	map_line = malloc(sizeof(t_vertex) * size.x);
@@ -71,7 +73,9 @@ static t_vertex	*parse_line(char *line, t_vec2 size, int i)
 		exit(EXIT_FAILURE);
 	while (j < size.x)
 	{
-		map_line[j].x = (-size.x / 2) + j;
+		if ((-size.x / 2) + j >= 0 && (int)size.x % 2 == 0)
+			off_set = 1;
+		map_line[j].x = (-size.x / 2) + j + off_set;
 		map_line[j].y = ft_atoi(line_split[j]);
 		map_line[j].z = (size.y / 2) + j - i;
 		map_line[j].color = parse_color(line_split[j]);
