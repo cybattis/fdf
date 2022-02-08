@@ -6,11 +6,21 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 13:22:00 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/05 17:01:25 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/08 12:47:18 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+void	screen_projection(t_fdf *fdf)
+{
+	t_matrix	view;
+	t_matrix	projection;
+
+	model_to_view_matrix(fdf->w, vec3(0.0, 0.0, -10, view);
+	matrix_mult44(scale.m, rotation.m, &projection);
+	matrix_mult44(p_sr.m, translation.m, world);
+}
 
 void	ortho_matrix(t_vec2 screen, t_vec2 dist, t_matrix *matrix)
 {

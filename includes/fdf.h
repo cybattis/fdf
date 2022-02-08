@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:33:14 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/06 11:33:45 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/08 12:42:38 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,22 +36,24 @@
 #  define KEY_DOWN	0xff54
 #  define KEY_F3	0xffc0
 # else
-#  define KEY_SPACE
-#  define KEY_F
-#  define KEY_P
+#  define KEY_F		3
 #  define KEY_Q		12		// for ANSI
+#  define KEY_P		35
+#  define KEY_SPACE	49
 #  define KEY_ESC	53
-#  define KEY_LEFT
-#  define KEY_UP
-#  define KEY_RIGHT
-#  define KEY_DOWN
-#  define KEY_F3
+#  define KEY_F3	99
+#  define KEY_LEFT	123
+#  define KEY_RIGHT	124
+#  define KEY_DOWN	125
+#  define KEY_UP	126
 # endif
 
 # define WHITE		0x00FFFFFF
 # define RED		0x00FF0000
 # define GREEN		0x0000FF00
 # define BLUE		0x000000FF
+
+# define DEBUG		0
 
 typedef struct s_vars {
 	void	*mlx;
@@ -86,8 +88,13 @@ typedef struct s_frame {
 	int		height;
 }	t_frame;
 
-/* main.c */
-void		init_frame(t_vars *vars, t_frame *frame);
+typedef struct s_fdf {
+	t_vars		vars;
+	t_frame		frame;
+	t_map		*map;
+	t_vec2		screen;
+	t_transform	w;
+}	t_fdf;
 
 /* matrix.c */
 void		model_to_view_matrix(t_transform w, t_vec3 eye_dist);
@@ -101,7 +108,7 @@ t_map		*get_map(int argc, char *path);
 void		update_map(t_vec3 **map, int size);
 
 /* draw.c */
-void		draw_frame(t_vars *vars, t_frame *frame, t_map *map);
+void		draw_frame(t_fdf *fdf);
 void		draw_map(t_frame *frame, t_map *map);
 void		mlx_pixel_put_img(t_frame *frame, int x, int y, int color);
 void		clear_screen(t_frame *frame, int color);
@@ -113,8 +120,7 @@ void		draw_line(t_frame *frame, t_vertex p1, t_vertex p2, int color);
 void		draw_circle(t_frame *frame, t_vec3 origin, int r, int color);
 
 /* hooks.c.c */
-int			quit_program(int keycode, t_vars *vars);
-int			movement(int keycode, t_transform w);
+int			key_hooks(int keycode, t_fdf *fdf);
 
 /* colors.c */
 int			create_trgb(int t, int r, int g, int b);

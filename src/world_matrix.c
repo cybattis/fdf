@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 15:35:23 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/05 17:08:13 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/08 12:36:08 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,13 @@ void	model_to_view_matrix(t_transform w, t_vec3 eye_dist)
 
 	camera_matrix(&camera, eye_dist);
 	world_matrix(w, &world);
-	dprintf(1, "\nWorld projection\n");
-	print_matrix44(world.m);
-	dprintf(1, "\ncamera projection\n");
-	print_matrix44(camera.m);
+	if (DEBUG == 1)
+	{
+		ft_dprintf(1, "\nWorld projection\n");
+		print_matrix44(world.m);
+		ft_dprintf(1, "\ncamera projection\n");
+		print_matrix44(camera.m);
+	}
 }
 
 static void	world_matrix(t_transform w, t_matrix *world)

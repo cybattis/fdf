@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 17:32:25 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/06 11:08:34 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/08 12:35:13 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,12 @@ t_map	*get_map(int argc, char *path)
 		map = malloc(sizeof(t_map) * 1);
 		map->size = vec2_zero();
 		get_matrix_size(path, &map->size);
-		print_vec2(map->size);
 		map->v = parsing(path, map->size);
-		ft_print_map(*map);
+		if (DEBUG == 1)
+		{
+			print_vec2(map->size);
+			ft_print_map(*map);
+		}
 		return (map);
 	}
 	ft_dprintf(2, "Error: wrong number of arguments\nUsage: ./fdf [map]\n");

@@ -6,42 +6,50 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 18:35:28 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/06 11:37:00 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/08 12:43:20 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
+static t_fdf	*init_all(int argc, char *str);
+static void		init_frame(t_vars *vars, t_frame *frame);
+
 int	main(int argc, char *argv[])
 {
-	t_transform	w;
-	t_vars		vars;
-	t_frame		frame;
-	t_map		*map;
+	t_fdf	*fdf;
 
+	fdf = init_all(argc, argv[1]);
 
-	map = get_map(argc, argv[1]);
+	draw_frame(fdf);
+	mlx_key_hook(fdf->vars.win, key_hooks, fdf);
+	mlx_loop(fdf->vars.mlx);
 
-	w.scale = 10;
-	w.rotation = vec3(30, 20, 40);
-	w.translation = vec3(5, 10, 42);
-	model_to_view_matrix(w, vec3(0, 0, -10));
-
-	vars.mlx = mlx_init();
-	vars.win = mlx_new_window(vars.mlx, WIN_W, WIN_H, "FdF");
-	init_frame(&vars, &frame);
-
-	draw_frame(&vars, &frame, map);
-
-	mlx_key_hook(vars.win, movement, &w);
-	mlx_key_hook(vars.win, quit_program, &vars);
-	mlx_loop(vars.mlx);
-
-	free_matrix(map, map->size.y - 1);
+	free_matrix(fdf->map, fdf->map->size.y - 1);
+	free(fdf);
 	return (0);
 }
 
-void	init_frame(t_vars *vars, t_frame *frame)
+static t_fdf	*init_all(int argc, char *str)
+{
+	t_fdf	*fdf;
+
+	fdf = malloc(sizeof(t_fdf) * 1);
+	if (!fdf)
+		exit(EXIT_FAILURE);
+	fdf->screen = vec2(WIN_W, WIN_H);
+	fdf->map = get_map(argc, str);
+	fdf->vars.mlx = mlx_init();
+	fdf->vars.win = mlx_new_window(fdf->vars.mlx, WIN_W, WIN_H, "FdF");
+	init_frame(&fdf->vars, &fdf->frame);
+	fdf->w.scale = 10;
+	fdf->w.rotation = vec3(30, 20, 40);
+	fdf->w.translation = vec3(5, 10, 42);
+	model_to_view_matrix(fdf->w, vec3(0, 0, -10));
+	return (fdf);
+}
+
+static void	init_frame(t_vars *vars, t_frame *frame)
 {
 	frame->img = mlx_new_image(vars->mlx, WIN_W, WIN_H);
 	frame->addr = mlx_get_data_addr(frame->img, &frame->bits_pp,
