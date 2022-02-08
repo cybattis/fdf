@@ -6,23 +6,50 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 13:22:00 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/08 12:47:18 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/08 16:56:50 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	screen_projection(t_fdf *fdf)
+static void	ortho_matrix(t_vec2 screen, t_vec2 dist, t_matrix *matrix);
+
+void	screen_projection(t_fdf *fdf, t_matrix *projection)
 {
 	t_matrix	view;
-	t_matrix	projection;
+	t_matrix	ortho;
 
-	model_to_view_matrix(fdf->w, vec3(0.0, 0.0, -10, view);
-	matrix_mult44(scale.m, rotation.m, &projection);
-	matrix_mult44(p_sr.m, translation.m, world);
+	ortho_matrix(fdf->screen, vec2(10, 50), &ortho);
+	model_to_view_matrix(&view, fdf->t, vec3(0.0, 0.0, -10));
+	matrix_mult44(view.m, ortho.m, projection);
+	if (DEBUG == 1)
+	{
+		ft_dprintf(1, "\northo matrix\n");
+		print_matrix44(ortho.m);
+		ft_dprintf(1, "\n projection \n");
+		print_matrix44(projection->m);
+	}
 }
 
-void	ortho_matrix(t_vec2 screen, t_vec2 dist, t_matrix *matrix)
+void	map_projection(t_fdf *fdf, t_matrix *projection)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	while (i < fdf->map_size.y)
+	{
+		j = 0;
+		while (j < fdf->map_size.x)
+		{
+			// screen_map[i][j] = matrix_mult44v3(&map->v[i][j], projection);
+			j++;
+		}
+		i++;
+	}
+}
+
+static void	ortho_matrix(t_vec2 screen, t_vec2 dist, t_matrix *matrix)
 {
 	ft_memset(matrix, 0, sizeof(t_matrix));
 	matrix->m[0][0] = 1 / screen.x;

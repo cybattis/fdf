@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 15:56:16 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/08 12:28:32 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/08 16:56:02 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,32 @@
 
 void	draw_frame(t_fdf *fdf)
 {
+	t_matrix	projection;
+
 	clear_screen(&fdf->frame, create_trgb(0, 55, 70, 75));
 	mlx_put_image_to_window(fdf->vars.mlx, fdf->vars.win, fdf->frame.img, 0, 0);
 	draw_circle(&fdf->frame, vec3(WIN_W / 2, WIN_H / 2, 1), 5, RED);
-	// update_map(map, map);
-	// draw_map(frame, map);
+	screen_projection(fdf, &projection);
+	map_projection(fdf, &projection);
+	draw_map(fdf, fdf->map_size);
 	mlx_put_image_to_window(fdf->vars.mlx, fdf->vars.win, fdf->frame.img, 0, 0);
 }
 
-void	draw_map(t_frame *frame, t_map *map)
+void	draw_map(t_fdf *fdf, t_vec2 map_size)
 {
 	int		i;
 	int		j;
 
 	i = 0;
-	while (i < map->size.y)
+	while (i < map_size.y)
 	{
 		j = 0;
-		while (j < map->size.x)
+		while (j < map_size.x)
 		{
-			if (j < map->size.x - 1)
-				draw_line(frame, map->v[i][j], map->v[i][j + 1], WHITE);
-			if (i < map->size.y - 1)
-				draw_line(frame, map->v[i][j], map->v[i + 1][j], WHITE);
+			if (j < map_size.x - 1)
+				draw_line(&fdf->frame, fdf->map[i][j].v, fdf->map[i][j + 1].v, WHITE);
+			if (i < map_size.y - 1)
+				draw_line(&fdf->frame, fdf->map[i][j].v, fdf->map[i + 1][j].v, WHITE);
 			j++;
 		}
 		i++;

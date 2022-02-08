@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 15:27:01 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/05 18:43:15 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/08 15:49:07 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ void	ft_error_msg(char *msg)
 	exit(EXIT_FAILURE);
 }
 
-void	free_matrix(t_map *map, int i)
+void	free_matrix(t_map **map, int i)
 {
 	while (i)
-		free(map->v[i--]);
-	free(map->v[i]);
+		free(map[i--]);
+	free(map[i]);
 	free(map);
 }

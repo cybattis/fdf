@@ -6,25 +6,25 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 17:44:17 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/06 00:18:43 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/08 16:04:18 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	ft_print_map(t_map	map)
+void	ft_print_map(t_map	**map, t_vec2 size)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	while (i < map.size.y)
+	while (i < size.y)
 	{
 		j = 0;
-		while (j < map.size.x)
+		while (j < size.x)
 		{
 			dprintf(2, "[%.0f, %.0f, %.0f, %x]",
-				map.v[i][j].x, map.v[i][j].y, map.v[i][j].z, map.v[i][j].color);
+				map[i][j].v.x, map[i][j].v.y, map[i][j].v.z, map[i][j].color);
 			j++;
 		}
 		ft_dprintf(2, "\n");

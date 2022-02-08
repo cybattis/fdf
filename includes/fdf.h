@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:33:14 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/08 12:42:38 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/08 16:53:12 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,23 +53,16 @@
 # define GREEN		0x0000FF00
 # define BLUE		0x000000FF
 
-# define DEBUG		0
+# define DEBUG		1
 
 typedef struct s_vars {
 	void	*mlx;
 	void	*win;
 }	t_vars;
 
-typedef struct s_vextex {
-	float	x;
-	float	y;
-	float	z;
-	int		color;
-}	t_vertex;
-
 typedef struct s_map {
-	t_vertex	**v;
-	t_vec2		size;
+	t_vec3	v;
+	int		color;
 }	t_map;
 
 typedef struct s_transform {
@@ -89,32 +82,36 @@ typedef struct s_frame {
 }	t_frame;
 
 typedef struct s_fdf {
+	t_vec2		screen;
 	t_vars		vars;
 	t_frame		frame;
-	t_map		*map;
-	t_vec2		screen;
-	t_transform	w;
+	t_map		**map;
+	t_vec2		map_size;
+	t_transform	t;
 }	t_fdf;
 
+void		map_projection(t_fdf *fdf, t_matrix *projection);
+void		screen_projection(t_fdf *fdf, t_matrix *projection);
+
 /* matrix.c */
-void		model_to_view_matrix(t_transform w, t_vec3 eye_dist);
+void		model_to_view_matrix(t_matrix *view, t_transform t, t_vec3 eye);
 
 /* rotation_matrix.c */
 void		rotation_matrix(t_matrix *p_x, t_vec3 angle);
 
 /* map_parsing.c */
-t_map		*get_map(int argc, char *path);
+t_map		**get_map(int argc, char *path, t_vec2 *map_size);
 
 void		update_map(t_vec3 **map, int size);
 
 /* draw.c */
 void		draw_frame(t_fdf *fdf);
-void		draw_map(t_frame *frame, t_map *map);
+void		draw_map(t_fdf *fdf, t_vec2 map_size);
 void		mlx_pixel_put_img(t_frame *frame, int x, int y, int color);
 void		clear_screen(t_frame *frame, int color);
 
 /* draw_line.c */
-void		draw_line(t_frame *frame, t_vertex p1, t_vertex p2, int color);
+void		draw_line(t_frame *frame, t_vec3 p1, t_vec3 p2, int color);
 
 /* draw_circle.c */
 void		draw_circle(t_frame *frame, t_vec3 origin, int r, int color);
@@ -136,11 +133,11 @@ int			add_shade(float distance, int trgb);
 /* utils.c */
 void		ft_ferror(int fd);
 void		ft_error_msg(char *msg);
-void		free_matrix(t_map *map, int i);
+void		free_matrix(t_map **map, int i);
 
 /* utils_print.c */
 int			print_color(int trgb);
-void		ft_print_map(t_map map);
+void		ft_print_map(t_map	**map, t_vec2 size);
 void		print_vec2(t_vec2 v);
 void		print_vec3(t_vec3 v);
 void		print_matrix44(float m[][4]);

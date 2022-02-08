@@ -6,31 +6,30 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 17:32:25 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/08 12:35:13 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/08 16:55:27 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static t_vertex	*parse_line(char *line, t_vec2 size, int i);
-static t_vertex	**parsing(char *path, t_vec2 size);
+static t_map	*parse_line(char *line, t_vec2 size, int i);
+static t_map	**parsing(char *path, t_vec2 size);
 static void		get_matrix_size(char *path, t_vec2 *size);
 static int		parse_color(char *str);
 
-t_map	*get_map(int argc, char *path)
+t_map	**get_map(int argc, char *path, t_vec2 *map_size)
 {
-	t_map	*map;
+	t_map	**map;
 
 	if (argc == 2)
 	{
+		get_matrix_size(path, map_size);
 		map = malloc(sizeof(t_map) * 1);
-		map->size = vec2_zero();
-		get_matrix_size(path, &map->size);
-		map->v = parsing(path, map->size);
+		map = parsing(path, *map_size);
 		if (DEBUG == 1)
 		{
-			print_vec2(map->size);
-			ft_print_map(*map);
+			print_vec2(*map_size);
+			ft_print_map(map, *map_size);
 		}
 		return (map);
 	}
@@ -38,17 +37,17 @@ t_map	*get_map(int argc, char *path)
 	exit(EXIT_FAILURE);
 }
 
-static t_vertex	**parsing(char *path, t_vec2 size)
+static t_map	**parsing(char *path, t_vec2 size)
 {
-	int			i;
-	char		*line;
-	int			fd;
-	t_vertex	**v;
+	int		i;
+	char	*line;
+	int		fd;
+	t_map	**v;
 
 	fd = open(path, O_RDONLY);
 	ft_ferror(fd);
 	i = 0;
-	v = malloc(sizeof(t_vertex *) * size.y);
+	v = malloc(sizeof(t_map *) * size.y);
 	line = ft_get_next_line(fd);
 	while (line != NULL)
 	{
@@ -60,27 +59,27 @@ static t_vertex	**parsing(char *path, t_vec2 size)
 	return (v);
 }
 
-static t_vertex	*parse_line(char *line, t_vec2 size, int i)
+static t_map	*parse_line(char *line, t_vec2 size, int i)
 {
-	t_vertex	*map_line;
-	char		**line_split;
-	int			off_set;
-	int			j;
+	t_map	*map_line;
+	char	**line_split;
+	int		off_set;
+	int		j;
 
 	j = 0;
 	off_set = 0;
 	line_split = ft_split(line, ' ');
 	free(line);
-	map_line = malloc(sizeof(t_vertex) * size.x);
+	map_line = malloc(sizeof(t_map) * size.x);
 	if (!map_line)
 		exit(EXIT_FAILURE);
 	while (j < size.x)
 	{
 		if ((-size.x / 2) + j >= 0 && (int)size.x % 2 == 0)
 			off_set = 1;
-		map_line[j].x = (-size.x / 2) + j + off_set;
-		map_line[j].y = ft_atoi(line_split[j]);
-		map_line[j].z = (size.y / 2) + j - i;
+		map_line[j].v.x = (-size.x / 2) + j + off_set;
+		map_line[j].v.y = ft_atoi(line_split[j]);
+		map_line[j].v.z = (size.y / 2) + j - i;
 		map_line[j].color = parse_color(line_split[j]);
 		j++;
 	}
