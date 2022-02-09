@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 15:27:01 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/09 16:14:35 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/09 16:26:35 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,11 @@ void	free_matrix(t_map **map, int i)
 	free(map);
 }
 
+void	strtrimr(char *str)
+{
+	int	i;
 
+	i = ft_strlen(str);
+	while (ft_isspace(str[i]))
+		str[i--] = 0;
+}

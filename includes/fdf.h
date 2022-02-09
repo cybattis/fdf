@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:33:14 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/09 14:59:42 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/09 16:40:16 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ t_map		**get_map(char *path, t_vec2 *map_size);
 void		update_map(t_vec3 **map, int size);
 
 /* draw.c */
-void		draw_frame(t_fdf *fdf);
+int			draw_frame(t_fdf *fdf);
 void		draw_map(t_fdf *fdf, t_vec2 map_size);
 void		mlx_pixel_put_img(t_frame *frame, int x, int y, int color);
 void		clear_screen(t_fdf *fdf, int color);
@@ -130,6 +130,7 @@ int			add_shade(float distance, int trgb);
 void		ft_ferror(int fd);
 void		ft_error_msg(char *msg);
 void		free_matrix(t_map **map, int i);
+void		strtrimr(char *str);
 
 /* utils_print.c */
 int			print_color(int trgb);

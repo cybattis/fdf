@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 17:32:25 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/09 16:11:42 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/09 16:40:04 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	get_matrix_size(char *path, t_vec2 *size)
 	line = ft_get_next_line(fd);
 	while (line != NULL)
 	{
+		strtrimr(line);
 		i = 0;
 		prev_size = 0;
 		while (line[i++])
@@ -36,7 +37,7 @@ void	get_matrix_size(char *path, t_vec2 *size)
 			while (line[i] == ' ')
 				i++;
 		}
-		size->x = prev_size;
+		size->x = prev_size + 1;
 		size->y++;
 		free(line);
 		line = ft_get_next_line(fd);

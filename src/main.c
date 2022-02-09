@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 18:35:28 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/09 16:20:08 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/09 16:23:14 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,9 @@ int	main(int argc, char *argv[])
 	t_fdf	*fdf;
 
 	fdf = init_all(argc, argv[1]);
-	draw_frame(fdf);
-
 	mlx_key_hook(fdf->win, key_hooks, fdf);
+	mlx_loop_hook(fdf->mlx, draw_frame, fdf);
 	mlx_loop(fdf->mlx);
-
 	free_matrix(fdf->map, fdf->map_size.y - 1);
 	free(fdf);
 	return (0);

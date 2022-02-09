@@ -20,10 +20,13 @@ MINILIBX	=	mlx
 # ****************************************************************************
 
 CC 			=	gcc
-CFLAGS		=	-Wall -Wextra -O2 -MMD $(INCLUDE)
+CFLAGS		=	-Wall -Werror -Wextra -O2 $(INCLUDE)
 DBFLAGS		=	$(CFLAGS) -g3 -fsanitize=address
 LIBFTFLAGS	=	-L $(LIB)/$(LIBFT) -lft
 LIBFTFLAGSD	=	-L $(LIB)/$(LIBFT) -lft_d
+
+AR_LIBFT	=	$(LIB)/libft.a
+AR_LIBFT_D	=	$(LIB)/libft_d.a
 
 OS			=	$(shell uname -s)
 ifeq ($(OS), Linux)
@@ -33,62 +36,55 @@ else
 endif
 
 INCLUDE		=	-I $(LIB)/$(LIBFT)/includes -I includes -I $(LIB)/mlx
+DEPS		=	includes/fdf.h $(LIB)/$(LIBFT)/includes/libft.h
 
 # Source files
 # ****************************************************************************
 
-SRCDIR		=	src/
+DIR_SRCS	=	src
 SRCSFILE	=	main.c colors.c colors2.c draw.c draw_line.c draw_circle.c		\
 				utils.c	hooks.c	map_parsing.c map.c projection.c world_matrix.c	\
 				rotation_matrix.c utils_print.c
 
-SRCS		=	$(addprefix $(SRCDIR), $(SRCSFILE))
+SRCS		=	$(addprefix $(DIR_SRCS)/, $(SRCSFILE))
 
-OBJSDIR		=	obj/
-OBJS		=	$(addprefix $(OBJSDIR), $(notdir $(SRCS:.c=.o)))
-
-OBJSDIRD	=	objd/
-OBJSD		=	$(addprefix $(OBJSDIRD), $(notdir $(SRCS:.c=.o)))
-
-DEPENDS		=	$(OBJS:.o=.d)
-DEPENDSD	=	$(OBJSD:.o=.d)
+DIR_OBJS	=	obj
+OBJS		=	$(addprefix $(DIR_OBJS)/, $(notdir $(SRCS:.c=.o)))
+DIR_OBJSD	=	obj_d
+OBJSD		=	$(addprefix $(DIR_OBJSD)/, $(notdir $(SRCS:.c=.o)))
 
 # Recipe
 # ****************************************************************************
 
-all:	$(NAME)
+$(DIR_OBJS)/%.o:	$(DIR_SRCS)/%.c $(DEPS) Makefile | $(DIR_OBJS)
+	@$(CC) $(CFLAGS) -c $< -o $@
+	@printf "$(_GREEN)█$(_END)"
 
-$(NAME): $(OBJS) $(LIB)/$(LIBFT)/$(LIBFT).a
+$(NAME):	$(AR_LIBFT) $(OBJS)
 	@printf "$(_END)\nCompiled source files\n"
 	@$(CC) $(CFLAGS) $(OBJS) $(LIBFTFLAGS) $(MLXFLAGS) -o $@
 	@printf "$(_GREEN)Finish compiling $(NAME)!$(_END)\n"
 
-$(NAMED): $(OBJSD) $(LIB)/$(LIBFT)/$(LIBFT)_d.a
+# Debug
+# =====================
+$(DIR_OBJSD)/%.o:	$(DIR_SRCS)/%.c $(DEPS) Makefile | $(DIR_OBJSD)
+	@$(CC) $(DBFLAGS) -c $< -o $@
+	@printf "$(_GREEN)█$(_END)"
+
+$(NAMED):	$(AR_LIBFT_D) $(OBJSD)
 	@printf "$(_END)\nCompiled debug source files\n"
 	@$(CC) $(DBFLAGS) $(OBJSD) $(LIBFTFLAGSD) $(MLXFLAGS) -o $@
 	@printf "$(_GREEN)Finish compiling in debug mode$(NAMED)!$(_END)\n"
 
-$(OBJSDIR)%.o:	$(SRCDIR)%.c
-	@mkdir -p $(OBJSDIR)
-	@$(CC) $(CFLAGS) -c $< -o $@
-	@printf "$(_GREEN)█$(_END)"
+# Action
+# =====================
 
-$(OBJSDIRD)%.o:	$(SRCDIR)%.c
-	@mkdir -p $(OBJSDIRD)
-	@$(CC) $(DBFLAGS) -c $< -o $@
-	@printf "$(_GREEN)█$(_END)"
-
-$(LIB)/$(LIBFT)/$(LIBFT).a: FORCE
-	@$(MAKE) -C $(LIB)/$(LIBFT)
-
-$(LIB)/$(LIBFT)/$(LIBFT)_d.a: FORCE
-	@$(MAKE) debug -C $(LIB)/$(LIBFT)
-FORCE:;
+all:	$(NAME)
 
 clean:	header
 	@printf "$(_YELLOW)Removing object files ...$(_END)\n"
 	@make clean -C $(LIB)/$(LIBFT)
-	@rm -rf $(OBJSDIR) $(OBJSDIRD)
+	@rm -rf $(DIR_OBJS) $(DIR_OBJSD)
 	@rm -fr *.dSYM
 
 fclean:	clean
@@ -101,11 +97,24 @@ re:		header fclean all
 debug:	header
 debug:	$(NAMED)
 
-print-%:	; @echo $* = $($*)
+$(AR_LIBFT):
+	@$(MAKE) -C $(LIB)/$(LIBFT)
 
--include $(DEPENDS)
+$(AR_LIBFT_D):
+	@$(MAKE) debug -C $(LIB)/$(LIBFT)
+
+$(DIR_OBJS):
+	@mkdir -p $(DIR_OBJS)
+
+$(DIR_OBJSD):
+	@mkdir -p $(DIR_OBJSD)
 
 .PHONY: all clean fclean re debug header
+
+# Misc
+# =====================
+
+print-%:	; @echo $* = $($*)
 
 header:
 	@printf "\n"
