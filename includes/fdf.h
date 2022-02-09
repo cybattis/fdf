@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:33:14 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/09 17:45:02 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/09 18:53:28 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ typedef struct s_fdf {
 	t_vec2		screen;
 	t_vec2		map_size;
 	t_map		**map;
+	t_map		**screen_map;
 	t_frame		frame;
 	t_transform	t;
 }	t_fdf;
@@ -131,6 +132,7 @@ void		ft_ferror(int fd);
 void		ft_error_msg(char *msg);
 void		free_matrix(t_map **map, int i);
 void		strtrimr(char *str);
+void		free_all(t_fdf *fdf);
 
 /* utils_print.c */
 int			print_color(int trgb);

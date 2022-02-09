@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 17:32:25 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/09 17:52:24 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/09 18:28:37 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ t_map	**get_map(char *path, t_vec2 *map_size)
 	ft_ferror(fd);
 	i = 0;
 	map = malloc(sizeof(t_map *) * map_size->y);
+	if (!map)
+		(exit(EXIT_FAILURE));
 	line = ft_get_next_line(fd);
 	while (line != NULL && i < map_size->y)
 	{

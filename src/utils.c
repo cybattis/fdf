@@ -6,11 +6,18 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 15:27:01 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/09 17:44:51 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/09 18:41:50 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+void	free_all(t_fdf *fdf)
+{
+	free_matrix(fdf->map, fdf->map_size.y - 1);
+	free_matrix(fdf->screen_map, fdf->map_size.y - 1);
+	free(fdf);
+}
 
 void	ft_ferror(int fd)
 {

@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 15:56:16 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/09 16:30:23 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/09 18:48:43 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	draw_frame(t_fdf *fdf)
 		ft_dprintf(2, "\n");
 	}
 	map_projection(fdf, &projection);
-	//draw_map(fdf, fdf->map_size);
+	draw_map(fdf, fdf->map_size);
 	mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->frame.img, 0, 0);
 	return (0);
 }
@@ -44,11 +44,11 @@ void	draw_map(t_fdf *fdf, t_vec2 map_size)
 		while (j < map_size.x)
 		{
 			if (j < map_size.x - 1)
-				draw_line(&fdf->frame, fdf->map[i][j].v,
-					fdf->map[i][j + 1].v, WHITE);
+				draw_line(&fdf->frame, fdf->screen_map[i][j].v,
+					fdf->screen_map[i][j + 1].v, WHITE);
 			if (i < map_size.y - 1)
-				draw_line(&fdf->frame, fdf->map[i][j].v,
-					fdf->map[i + 1][j].v, WHITE);
+				draw_line(&fdf->frame, fdf->screen_map[i][j].v,
+					fdf->screen_map[i + 1][j].v, WHITE);
 			j++;
 		}
 		i++;

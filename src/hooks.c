@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 17:57:26 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/09 11:57:38 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/09 18:50:21 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	key_hooks(int keycode, t_fdf *fdf)
 	else if (keycode == KEY_Q || keycode == KEY_ESC)
 	{
 		mlx_destroy_window(fdf->mlx, fdf->win);
+		free_all(fdf);
 		exit(EXIT_SUCCESS);
 	}
 	else if (keycode == KEY_F || keycode == KEY_P || keycode == KEY_F3
@@ -36,22 +37,22 @@ static int	movement(int keycode, t_fdf *fdf)
 {
 	if (keycode == KEY_LEFT)
 	{
-		fdf->t.rotation.x -= 0.1;
+		fdf->t.rotation.x -= 2;
 		printf("Left arrow pressed\n");
 	}
 	else if (keycode == KEY_UP)
 	{
-		fdf->t.rotation.z -= 0.1;
+		fdf->t.rotation.z -= 2;
 		printf("Up arrow pressed\n");
 	}
 	else if (keycode == KEY_RIGHT)
 	{
-		fdf->t.rotation.x += 0.1;
+		fdf->t.rotation.x += 2;
 		printf("Right arrow pressed\n");
 	}
 	else if (keycode == KEY_DOWN)
 	{
-		fdf->t.rotation.z += 0.1;
+		fdf->t.rotation.z += 2;
 		printf("Down arrow pressed\n");
 	}
 	draw_frame(fdf);
