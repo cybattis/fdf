@@ -6,19 +6,18 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 17:32:25 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/09 16:40:04 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/09 17:52:24 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
+static float	get_size_x(char *line);
 static t_map	*parse_line(char *line, t_vec2 *size, int i);
 static int		parse_color(char *str);
 
 void	get_matrix_size(char *path, t_vec2 *size)
 {
-	int		i;
-	float	prev_size;
 	char	*line;
 	int		fd;
 
@@ -28,21 +27,29 @@ void	get_matrix_size(char *path, t_vec2 *size)
 	while (line != NULL)
 	{
 		strtrimr(line);
-		i = 0;
-		prev_size = 0;
-		while (line[i++])
-		{
-			if (line[i] == ' ')
-				prev_size++;
-			while (line[i] == ' ')
-				i++;
-		}
-		size->x = prev_size + 1;
+		size->x = get_size_x(line);
 		size->y++;
 		free(line);
 		line = ft_get_next_line(fd);
 	}
 	close(fd);
+}
+
+static float	get_size_x(char *line)
+{
+	int		i;
+	float	prev_size;
+
+	i = 0;
+	prev_size = 0;
+	while (line[i++])
+	{
+		if (line[i] == ' ')
+			prev_size++;
+		while (line[i] == ' ')
+			i++;
+	}
+	return (prev_size + 1);
 }
 
 t_map	**get_map(char *path, t_vec2 *map_size)
