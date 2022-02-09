@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 15:56:16 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/08 16:56:02 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/09 15:07:02 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,19 @@ void	draw_frame(t_fdf *fdf)
 {
 	t_matrix	projection;
 
-	clear_screen(&fdf->frame, create_trgb(0, 55, 70, 75));
-	mlx_put_image_to_window(fdf->vars.mlx, fdf->vars.win, fdf->frame.img, 0, 0);
+	clear_screen(fdf, create_trgb(0, 55, 70, 75));
+	mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->frame.img, 0, 0);
 	draw_circle(&fdf->frame, vec3(WIN_W / 2, WIN_H / 2, 1), 5, RED);
-	screen_projection(fdf, &projection);
+	world_matrix(fdf->t, &projection);
+	if (DEBUG == 1)
+	{
+		ft_dprintf(2, "\nWorld projection\n");
+		print_matrix44(projection.m);
+		ft_dprintf(2, "\n");
+	}
 	map_projection(fdf, &projection);
-	draw_map(fdf, fdf->map_size);
-	mlx_put_image_to_window(fdf->vars.mlx, fdf->vars.win, fdf->frame.img, 0, 0);
+	//draw_map(fdf, fdf->map_size);
+	mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->frame.img, 0, 0);
 }
 
 void	draw_map(t_fdf *fdf, t_vec2 map_size)
@@ -37,27 +43,29 @@ void	draw_map(t_fdf *fdf, t_vec2 map_size)
 		while (j < map_size.x)
 		{
 			if (j < map_size.x - 1)
-				draw_line(&fdf->frame, fdf->map[i][j].v, fdf->map[i][j + 1].v, WHITE);
+				draw_line(&fdf->frame, fdf->map[i][j].v,
+					fdf->map[i][j + 1].v, WHITE);
 			if (i < map_size.y - 1)
-				draw_line(&fdf->frame, fdf->map[i][j].v, fdf->map[i + 1][j].v, WHITE);
+				draw_line(&fdf->frame, fdf->map[i][j].v,
+					fdf->map[i + 1][j].v, WHITE);
 			j++;
 		}
 		i++;
 	}
 }
 
-void	clear_screen(t_frame *frame, int color)
+void	clear_screen(t_fdf *fdf, int color)
 {
 	int	i;
 	int	total;
 	int	bytes_pp;
 
 	i = 0;
-	total = frame->width * frame->height;
-	bytes_pp = frame->bits_pp / 8;
+	total = fdf->screen.x * fdf->screen.y;
+	bytes_pp = fdf->frame.bits_pp / 8;
 	while (i < total)
 	{
-		*((unsigned int *)(frame->addr + i * bytes_pp)) = color;
+		*((unsigned int *)(fdf->frame.addr + i * bytes_pp)) = color;
 		i++;
 	}
 }

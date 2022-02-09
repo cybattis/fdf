@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:33:14 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/08 16:53:12 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/09 14:59:42 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,6 @@
 
 # define DEBUG		1
 
-typedef struct s_vars {
-	void	*mlx;
-	void	*win;
-}	t_vars;
-
 typedef struct s_map {
 	t_vec3	v;
 	int		color;
@@ -77,16 +72,15 @@ typedef struct s_frame {
 	int		bits_pp;
 	int		line_length;
 	int		endian;
-	int		width;
-	int		height;
 }	t_frame;
 
 typedef struct s_fdf {
+	void		*mlx;
+	void		*win;
 	t_vec2		screen;
-	t_vars		vars;
-	t_frame		frame;
-	t_map		**map;
 	t_vec2		map_size;
+	t_map		**map;
+	t_frame		frame;
 	t_transform	t;
 }	t_fdf;
 
@@ -94,13 +88,15 @@ void		map_projection(t_fdf *fdf, t_matrix *projection);
 void		screen_projection(t_fdf *fdf, t_matrix *projection);
 
 /* matrix.c */
+void		world_matrix(t_transform t, t_matrix *world);
 void		model_to_view_matrix(t_matrix *view, t_transform t, t_vec3 eye);
 
 /* rotation_matrix.c */
 void		rotation_matrix(t_matrix *p_x, t_vec3 angle);
 
 /* map_parsing.c */
-t_map		**get_map(int argc, char *path, t_vec2 *map_size);
+void		get_matrix_size(char *path, t_vec2 *size);
+t_map		**get_map(char *path, t_vec2 *map_size);
 
 void		update_map(t_vec3 **map, int size);
 
@@ -108,7 +104,7 @@ void		update_map(t_vec3 **map, int size);
 void		draw_frame(t_fdf *fdf);
 void		draw_map(t_fdf *fdf, t_vec2 map_size);
 void		mlx_pixel_put_img(t_frame *frame, int x, int y, int color);
-void		clear_screen(t_frame *frame, int color);
+void		clear_screen(t_fdf *fdf, int color);
 
 /* draw_line.c */
 void		draw_line(t_frame *frame, t_vec3 p1, t_vec3 p2, int color);
