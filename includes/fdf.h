@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:33:14 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/09 18:53:28 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/09 23:36:17 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@
 #  define KEY_SPACE	0x20
 #  define KEY_F		0x66
 #  define KEY_P		0x70
-#  define KEY_Q		0x71	// for ANSI
+#  define KEY_Q		0x71
+#  define KEY_E		0x65	// for ANSI
 #  define KEY_ESC	0xff1b
 #  define KEY_LEFT	0xff51
 #  define KEY_UP	0xff52
@@ -53,7 +54,7 @@
 # define GREEN		0x0000FF00
 # define BLUE		0x000000FF
 
-# define DEBUG		1
+# define DEBUG		0
 
 typedef struct s_map {
 	t_vec3	v;
