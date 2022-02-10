@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 17:32:25 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/09 18:28:37 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/10 18:15:37 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,9 @@ static t_map	*parse_line(char *line, t_vec2 *size, int i)
 {
 	t_map	*map_line;
 	char	**line_split;
-	int		off_set;
 	int		j;
 
 	j = 0;
-	off_set = 0;
 	line_split = ft_split(line, ' ');
 	free(line);
 	map_line = malloc(sizeof(t_map) * size->x);
@@ -92,12 +90,12 @@ static t_map	*parse_line(char *line, t_vec2 *size, int i)
 		exit(EXIT_FAILURE);
 	while (j < size->x)
 	{
-		if ((-size->x / 2) + j >= 0 && (int)size->x % 2 == 0)
-			off_set = 1;
-		map_line[j].v.x = (-size->x / 2) + j + off_set;
-		map_line[j].v.y = ft_atoi(line_split[j]);
-		map_line[j].v.z = (size->y / 2) + j - i;
+		map_line[j].v.x = (-size->x / 2) + j;
+		map_line[j].v.y = ft_atoi(line_split[j]) / 4;
+		map_line[j].v.z = (size->y / 2) - i;
 		map_line[j].color = parse_color(line_split[j]);
+		if (DEBUG == 1)
+			dprintf(2, "%x\n", map_line[j].color);
 		j++;
 	}
 	ft_free_all(line_split, size->x);
@@ -106,13 +104,17 @@ static t_map	*parse_line(char *line, t_vec2 *size, int i)
 
 static int	parse_color(char *str)
 {
-	int	w;
+	char	*out;
+	int		w;
 
 	w = 0;
 	while (str[w])
 	{
 		if (str[w] == 'x')
-			return (ft_atoi_base(&str[w + 1], "0123456789abcdef"));
+		{
+			out = ft_str_tolower(&str[w + 1]);
+			return (ft_atoi_base(out, "0123456789abcdef"));
+		}
 		w++;
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 17:44:17 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/09 15:10:22 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/10 17:22:59 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_print_map(t_map	**map, t_vec2 size)
 		j = 0;
 		while (j < size.x)
 		{
-			dprintf(2, "[%.1f, %.1f, %.1f, %x]",
+			dprintf(2, "[%f, %f, %f, %x]",
 				map[i][j].v.x, map[i][j].v.y, map[i][j].v.z, map[i][j].color);
 			j++;
 		}

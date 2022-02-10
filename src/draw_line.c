@@ -6,42 +6,42 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 21:04:26 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/09 23:31:46 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/10 20:08:35 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-// static void	draw_line_low(t_frame *frame, t_vec3 p1, t_vec3 p2, int color);
-// static void	draw_line_high(t_frame *frame, t_vec3 p1, t_vec3 p2, int color);
-
 void	draw_line(t_frame *frame, t_vec3 p1, t_vec3 p2, int color)
 {
 	t_vec3	v;
-	float	dx;
-	float	dy;
+	t_vec3	d;
 	float	step;
 	int		i;
 
-	dx = (p2.x - p1.x);
-	dy = (p2.y - p1.y);
-	if (abs((int)dx) >= abs((int)dy))
-		step = abs((int)dx);
+	d.x = (p2.x - p1.x);
+	d.y = (p2.y - p1.y);
+	if (fabs(d.x) >= fabs(d.y))
+		step = fabs(d.x);
 	else
-		step = abs((int)dy);
-	dx = dx / step;
-	dy = dy / step;
+		step = fabs(d.y);
+	d.x = d.x / step;
+	d.y = d.y / step;
 	v.x = p1.x;
 	v.y = p1.y;
-	i = 1;
+	i = 0;
 	while (i <= step)
 	{
-		mlx_pixel_put_img(frame, v.x, v.y, color);
-		v.x += dx;
-		v.y += dy;
+		if (v.x >= 0 && v.x <= WIN_W && v.y >= 0 && v.y <= WIN_H)
+			mlx_pixel_put_img(frame, v.x, v.y, color);
+		v.x += d.x;
+		v.y += d.y;
 		i++;
 	}
 }
+
+// static void	draw_line_low(t_frame *frame, t_vec3 p1, t_vec3 p2, int color);
+// static void	draw_line_high(t_frame *frame, t_vec3 p1, t_vec3 p2, int color);
 
 // void	draw_line(t_frame *frame, t_vec3 p1, t_vec3 p2, int color)
 // {
@@ -64,7 +64,7 @@ void	draw_line(t_frame *frame, t_vec3 p1, t_vec3 p2, int color)
 // static void	draw_line_low(t_frame *frame, t_vec3 p1, t_vec3 p2, int color)
 // {
 // 	t_vec3	d;
-// 	int		m;
+// 	float	m;
 // 	int		dir;
 
 // 	d = vec3(p2.x - p1.x, p2.y - p1.y, 0.0);
@@ -91,7 +91,7 @@ void	draw_line(t_frame *frame, t_vec3 p1, t_vec3 p2, int color)
 // static void	draw_line_high(t_frame *frame, t_vec3 p1, t_vec3 p2, int color)
 // {
 // 	t_vec3	d;
-// 	int		m;
+// 	float	m;
 // 	int		dir;
 
 // 	d = vec3(p2.x - p1.x, p2.y - p1.y, 0.0);

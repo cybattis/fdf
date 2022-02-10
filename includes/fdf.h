@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:33:14 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/10 11:15:12 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/10 21:25:14 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,14 @@
 
 # ifdef __linux__
 #  define KEY_SPACE	0x20
+#  define KEY_A		0x61
+#  define KEY_D		0x64
+#  define KEY_E		0x65	// for ANSI
 #  define KEY_F		0x66
 #  define KEY_P		0x70
 #  define KEY_Q		0x71
-#  define KEY_E		0x65	// for ANSI
+#  define KEY_S		0x73
+#  define KEY_W		0x77
 #  define KEY_ESC	0xff1b
 #  define KEY_LEFT	0xff51
 #  define KEY_UP	0xff52
@@ -43,6 +47,10 @@
 #  define KEY_SPACE	49
 #  define KEY_ESC	53
 #  define KEY_F3	99
+#  define KEY_A
+#  define KEY_D
+#  define KEY_S
+#  define KEY_W
 #  define KEY_LEFT	123
 #  define KEY_RIGHT	124
 #  define KEY_DOWN	125
@@ -114,6 +122,7 @@ void		draw_circle(t_frame *frame, t_vec3 origin, int r, int color);
 
 /* hooks.c.c */
 int			key_hooks(int keycode, t_fdf *fdf);
+int			mouse_hooks(int mousecode, t_fdf *fdf);
 
 /* colors.c */
 int			create_trgb(int t, int r, int g, int b);

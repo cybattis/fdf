@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 18:35:28 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/10 11:15:24 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/10 21:25:11 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,12 @@ int	main(int argc, char *argv[])
 	t_fdf	*fdf;
 
 	fdf = init_all(argc, argv[1]);
+	if (DEBUG == 1)
+		draw_frame(fdf);
+	mlx_mouse_hook(fdf->win, mouse_hooks, fdf);
 	mlx_key_hook(fdf->win, key_hooks, fdf);
-	mlx_loop_hook(fdf->mlx, draw_frame, fdf);
+	if (DEBUG == 0)
+		mlx_loop_hook(fdf->mlx, draw_frame, fdf);
 	mlx_loop(fdf->mlx);
 	return (0);
 }
@@ -46,9 +50,9 @@ static t_fdf	*init_all(int argc, char *path)
 			ft_print_map(fdf->map, fdf->map_size);
 		}
 		init_frame(fdf, &fdf->frame);
-		fdf->t.scale = 15;
-		fdf->t.rotation = vec3(0, 0, 0);
-		fdf->t.translation = vec3(0, 0, 0);
+		fdf->t.scale = 20;
+		fdf->t.rotation = vec3(238, 23, 0);
+		fdf->t.translation = vec3(0.5, 0, -0.5);
 		return (fdf);
 	}
 	ft_dprintf(2, "Error: wrong number of arguments\nUsage: ./fdf [map]\n");

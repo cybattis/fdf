@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 15:56:16 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/10 10:57:50 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/10 21:22:46 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,14 @@ void	draw_map(t_fdf *fdf, t_vec2 map_size)
 		j = 0;
 		while (j < map_size.x)
 		{
+			if (fdf->screen_map[i][j].color == 0)
+				fdf->screen_map[i][j].color = WHITE;
 			if (j < map_size.x - 1)
 				draw_line(&fdf->frame, fdf->screen_map[i][j].v,
-					fdf->screen_map[i][j + 1].v, WHITE);
+					fdf->screen_map[i][j + 1].v, fdf->screen_map[i][j].color);
 			if (i < map_size.y - 1)
 				draw_line(&fdf->frame, fdf->screen_map[i][j].v,
-					fdf->screen_map[i + 1][j].v, WHITE);
+					fdf->screen_map[i + 1][j].v, fdf->screen_map[i][j].color);
 			j++;
 		}
 		i++;
