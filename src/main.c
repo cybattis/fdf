@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 18:35:28 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/09 23:32:51 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/10 11:15:24 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static t_fdf	*init_all(int argc, char *path)
 		}
 		init_frame(fdf, &fdf->frame);
 		fdf->t.scale = 15;
-		fdf->t.rotation = vec3(35, 0, 35);
+		fdf->t.rotation = vec3(0, 0, 0);
 		fdf->t.translation = vec3(0, 0, 0);
 		return (fdf);
 	}

@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:33:14 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/09 23:36:17 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/10 11:15:12 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,6 @@ void		rotation_matrix(t_matrix *p_x, t_vec3 angle);
 /* map_parsing.c */
 void		get_matrix_size(char *path, t_vec2 *size);
 t_map		**get_map(char *path, t_vec2 *map_size);
-
-void		update_map(t_vec3 **map, int size);
 
 /* draw.c */
 int			draw_frame(t_fdf *fdf);

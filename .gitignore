@@ -2,6 +2,7 @@ obj*
 fdf*
 mlx_linux
 lib/mlx/
+.vscode
 
 # Prerequisites
 *.d

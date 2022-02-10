@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 15:56:16 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/09 18:48:43 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/10 10:57:50 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	draw_frame(t_fdf *fdf)
 	t_matrix	projection;
 
 	clear_screen(fdf, create_trgb(0, 55, 70, 75));
-	mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->frame.img, 0, 0);
 	draw_circle(&fdf->frame, vec3(WIN_W / 2, WIN_H / 2, 1), 5, RED);
 	world_matrix(fdf->t, &projection);
 	if (DEBUG == 1)
