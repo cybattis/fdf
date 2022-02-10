@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 17:57:26 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/10 21:25:05 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/10 21:31:28 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ static int	option(int keycode);
 int	mouse_hooks(int mousecode, t_fdf *fdf)
 {
 	if (mousecode == 4)
-		fdf->t.scale += 1.0;
+		;//fdf->t.scale += 1.0;
 	else if (mousecode == 5)
-		fdf->t.scale -= 1.0;
+		;//fdf->t.scale -= 1.0;
 	else
 		ft_printf("mousecode:%d\n", mousecode);
 	if (DEBUG == 1)
