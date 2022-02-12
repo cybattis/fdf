@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:33:14 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/10 22:10:06 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/12 12:40:51 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@
 #  define KEY_Q		0x71
 #  define KEY_S		0x73
 #  define KEY_W		0x77
+#  define KEY_X		0x78
+#  define KEY_Z		0x7A
 #  define KEY_ESC	0xff1b
 #  define KEY_LEFT	0xff51
 #  define KEY_UP	0xff52
@@ -41,28 +43,37 @@
 #  define KEY_DOWN	0xff54
 #  define KEY_F3	0xffc0
 # else
-#  define KEY_F		3
-#  define KEY_Q		12		// for ANSI
-#  define KEY_P		35
 #  define KEY_SPACE	49
-#  define KEY_ESC	53
-#  define KEY_F3	99
 #  define KEY_A
 #  define KEY_D
+#  define KEY_E
+#  define KEY_F		3
+#  define KEY_P		35
+#  define KEY_Q		12		// for ANSI
 #  define KEY_S
 #  define KEY_W
+#  define KEY_X
+#  define KEY_Z
+#  define KEY_ESC	53
 #  define KEY_LEFT	123
+#  define KEY_UP	126
 #  define KEY_RIGHT	124
 #  define KEY_DOWN	125
-#  define KEY_UP	126
+#  define KEY_F3	99
 # endif
 
-# define WHITE		0x00FFFFFF
+# define BLACK		0x00000000
 # define RED		0x00FF0000
 # define GREEN		0x0000FF00
 # define BLUE		0x000000FF
+# define WHITE		0x00FFFFFF
+# define PINK		0x00FF00FF
+# define YELLOW		0x00FFFF00
+# define TURQUOISE	0x0000FFFF
 
-# define DEBUG		0
+# define DEBUG		1
+# define DB_MATRIX	0
+# define DB_COLOR	0
 
 typedef struct s_map {
 	t_vec3	v;
@@ -92,6 +103,7 @@ typedef struct s_fdf {
 	t_map		**screen_map;
 	t_frame		frame;
 	t_transform	t;
+	int			def_color;
 }	t_fdf;
 
 void		map_projection(t_fdf *fdf, t_matrix *projection);
@@ -115,7 +127,8 @@ void		mlx_pixel_put_img(t_frame *frame, int x, int y, int color);
 void		clear_screen(t_fdf *fdf, int color);
 
 /* draw_line.c */
-void		draw_line(t_frame *frame, t_vec3 p1, t_vec3 p2, int color);
+void		draw_line(t_fdf *fdf, t_map p1, t_map p2);
+int			lerp_color(int a, int b, int i, int max);
 
 /* draw_circle.c */
 void		draw_circle(t_frame *frame, t_vec3 origin, int r, int color);
@@ -135,11 +148,15 @@ int			get_b(int trgb);
 int			get_opposite(int trgb);
 int			add_shade(float distance, int trgb);
 
+/* strtrim.c */
+void		strtrim(char *str);
+char		*strtriml(char *str);
+void		strtrimr(char *str);
+
 /* utils.c */
 void		ft_ferror(int fd);
 void		ft_error_msg(char *msg);
 void		free_matrix(t_map **map, int i);
-void		strtrimr(char *str);
 void		free_all(t_fdf *fdf);
 
 /* utils_print.c */

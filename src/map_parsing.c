@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 17:32:25 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/10 18:15:37 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/12 11:39:14 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,18 @@ static float	get_size_x(char *line)
 	float	prev_size;
 
 	i = 0;
-	prev_size = 0;
-	while (line[i++])
+	prev_size = 1;
+	while (line[i] == ' ')
+		i++;
+	while (line[i])
 	{
 		if (line[i] == ' ')
 			prev_size++;
 		while (line[i] == ' ')
 			i++;
+		i++;
 	}
-	return (prev_size + 1);
+	return (prev_size);
 }
 
 t_map	**get_map(char *path, t_vec2 *map_size)
@@ -91,10 +94,10 @@ static t_map	*parse_line(char *line, t_vec2 *size, int i)
 	while (j < size->x)
 	{
 		map_line[j].v.x = (-size->x / 2) + j;
-		map_line[j].v.y = ft_atoi(line_split[j]) / 4;
+		map_line[j].v.y = ft_atoi(line_split[j]);
 		map_line[j].v.z = (size->y / 2) - i;
 		map_line[j].color = parse_color(line_split[j]);
-		if (DEBUG == 1)
+		if (DB_COLOR == 1)
 			dprintf(2, "%x\n", map_line[j].color);
 		j++;
 	}

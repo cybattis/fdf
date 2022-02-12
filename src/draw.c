@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 15:56:16 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/10 22:00:19 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/12 12:19:31 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	draw_frame(t_fdf *fdf)
 	clear_screen(fdf, create_trgb(0, 55, 70, 75));
 	draw_circle(&fdf->frame, vec3(WIN_W / 2, WIN_H / 2, 1), 5, RED);
 	world_matrix(fdf->t, &projection);
-	if (DEBUG == 1)
+	if (DB_MATRIX == 1)
 	{
 		ft_dprintf(2, "\nWorld projection\n");
 		print_matrix44(projection.m);
@@ -42,22 +42,12 @@ void	draw_map(t_fdf *fdf, t_vec2 map_size)
 		j = 0;
 		while (j < map_size.x)
 		{
-			if (fdf->map[i][j].color == 0)
-				fdf->map[i][j].color = WHITE;
-			if (DEBUG == 1)
-			{
-				dprintf(2, "%x\n", fdf->map[i][j].color);
-				if (j < map_size.x - 1)
-					dprintf(2, "j+1:%x\n", fdf->map[i][j + 1].color);
-				if (i < map_size.y - 1)
-					dprintf(2, "i+1:%x\n", fdf->map[i + 1][j].color);
-			}
 			if (j < map_size.x - 1)
-				draw_line(&fdf->frame, fdf->screen_map[i][j].v,
-					fdf->screen_map[i][j + 1].v, fdf->map[i][j].color);
+				draw_line(fdf, fdf->screen_map[i][j],
+					fdf->screen_map[i][j + 1]);
 			if (i < map_size.y - 1)
-				draw_line(&fdf->frame, fdf->screen_map[i][j].v,
-					fdf->screen_map[i + 1][j].v, fdf->map[i][j].color);
+				draw_line(fdf, fdf->screen_map[i][j],
+					fdf->screen_map[i + 1][j]);
 			j++;
 		}
 		i++;

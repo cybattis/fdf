@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 17:57:26 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/10 21:31:28 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/12 11:56:37 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,23 +19,21 @@ static int	option(int keycode);
 int	mouse_hooks(int mousecode, t_fdf *fdf)
 {
 	if (mousecode == 4)
-		;//fdf->t.scale += 1.0;
+		ft_printf("Mouse wheel up\n", mousecode);
 	else if (mousecode == 5)
-		;//fdf->t.scale -= 1.0;
+		ft_printf("Mouse wheel down\n", mousecode);
 	else
 		ft_printf("mousecode:%d\n", mousecode);
 	if (DEBUG == 1)
-	{
 		draw_frame(fdf);
-		ft_printf("scale: %d\n", (int)fdf->t.scale);
-	}
 	return (0);
 }
 
 int	key_hooks(int keycode, t_fdf *fdf)
 {
 	if (keycode == KEY_LEFT || keycode == KEY_UP || keycode == KEY_RIGHT
-		|| keycode == KEY_DOWN || keycode == KEY_Q || keycode == KEY_E)
+		|| keycode == KEY_DOWN || keycode == KEY_Q || keycode == KEY_E
+		|| keycode == KEY_X || keycode == KEY_Z)
 		movement(keycode, fdf);
 	else if (keycode == KEY_W || keycode == KEY_S || keycode == KEY_A
 		|| keycode == KEY_D)
@@ -74,6 +72,10 @@ static int	movement(int keycode, t_fdf *fdf)
 		fdf->t.rotation.z -= 2;
 	else if (keycode == KEY_E)
 		fdf->t.rotation.z += 2;
+	else if (keycode == KEY_Z)
+		fdf->t.scale += 0.5;
+	else if (keycode == KEY_X)
+		fdf->t.scale -= 0.5;
 	return (0);
 }
 
@@ -93,12 +95,12 @@ static int	option(int keycode)
 static int	translation(int keycode, t_fdf *fdf)
 {
 	if (keycode == KEY_W)
-		fdf->t.translation.y += 1;
+		fdf->t.translation.z += 1;
 	else if (keycode == KEY_S)
-		fdf->t.translation.y -= 1;
+		fdf->t.translation.z -= 1;
 	else if (keycode == KEY_A)
-		fdf->t.translation.x += 1;
-	else if (keycode == KEY_D)
 		fdf->t.translation.x -= 1;
+	else if (keycode == KEY_D)
+		fdf->t.translation.x += 1;
 	return (0);
 }

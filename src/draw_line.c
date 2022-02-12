@@ -6,68 +6,81 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 21:04:26 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/10 20:08:35 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/12 12:28:42 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	draw_line(t_frame *frame, t_vec3 p1, t_vec3 p2, int color)
+void	draw_line(t_fdf *fdf, t_map p1, t_map p2)
 {
-	t_vec3	v;
-	t_vec3	d;
+	t_vec2	v;
+	t_vec2	d;
 	float	step;
 	int		i;
 
-	d.x = (p2.x - p1.x);
-	d.y = (p2.y - p1.y);
+	d = vec2(p2.v.x - p1.v.x, p2.v.y - p1.v.y);
 	if (fabs(d.x) >= fabs(d.y))
 		step = fabs(d.x);
 	else
 		step = fabs(d.y);
-	d.x = d.x / step;
-	d.y = d.y / step;
-	v.x = p1.x;
-	v.y = p1.y;
+	d = vec2(d.x / step, d.y / step);
+	v = vec2(p1.v.x, p1.v.y);
 	i = 0;
 	while (i <= step)
 	{
+		if (p1.color == 0)
+			p1.color = fdf->def_color;
+		if (p2.color == 0)
+			p2.color = fdf->def_color;
 		if (v.x >= 0 && v.x <= WIN_W && v.y >= 0 && v.y <= WIN_H)
-			mlx_pixel_put_img(frame, v.x, v.y, color);
-		v.x += d.x;
-		v.y += d.y;
+			mlx_pixel_put_img(&fdf->frame, v.x, v.y,
+				lerp_color(p1.color, p2.color, i, step));
+		vec2_add(&v, d);
 		i++;
 	}
 }
 
-// static void	draw_line_low(t_frame *frame, t_vec3 p1, t_vec3 p2, int color);
-// static void	draw_line_high(t_frame *frame, t_vec3 p1, t_vec3 p2, int color);
+int	lerp_color(int a, int b, int i, int max)
+{
+	int	out;
 
-// void	draw_line(t_frame *frame, t_vec3 p1, t_vec3 p2, int color)
+	out = a;
+	if (max > 0)
+		out = create_trgb(0, ((get_r(b) - get_r(a)) * i / max + get_r(a)),
+				((get_g(b) - get_g(a)) * i / max + get_g(a)),
+				((get_b(b) - get_b(a)) * i / max + get_b(a)));
+	return (out);
+}
+
+// static void	draw_line_low(t_frame *frame, t_map p1, t_map p2);
+// static void	draw_line_high(t_frame *frame, t_map p1, t_map p2);
+
+// void	draw_line(t_fdf *fdf, t_map p1, t_map p2)
 // {
-// 	if (fabs(p2.y - p1.y) < fabs(p2.x - p1.x))
+// 	if (fabs(p2.v.y - p1.v.y) < fabs(p2.v.x - p1.v.x))
 // 	{
-// 		if (p1.x > p2.x)
-// 			draw_line_low(frame, p2, p1, color);
+// 		if (p1.v.x > p2.v.x)
+// 			draw_line_low(&fdf->frame, p2, p1);
 // 		else
-// 			draw_line_low(frame, p1, p2, color);
+// 			draw_line_low(&fdf->frame, p1, p2);
 // 	}
 // 	else
 // 	{
-// 		if (p1.y > p2.y)
-// 			draw_line_high(frame, p2, p1, color);
+// 		if (p1.v.y > p2.v.y)
+// 			draw_line_high(&fdf->frame, p2, p1);
 // 		else
-// 			draw_line_high(frame, p1, p2, color);
+// 			draw_line_high(&fdf->frame, p1, p2);
 // 	}
 // }
 
-// static void	draw_line_low(t_frame *frame, t_vec3 p1, t_vec3 p2, int color)
+// static void	draw_line_low(t_frame *frame, t_map p1, t_map p2)
 // {
 // 	t_vec3	d;
 // 	float	m;
 // 	int		dir;
 
-// 	d = vec3(p2.x - p1.x, p2.y - p1.y, 0.0);
+// 	d = vec3(p2.v.x - p1.v.x, p2.v.y - p1.v.y, 0.0);
 // 	dir = 1;
 // 	if (d.y < 0)
 // 	{
@@ -75,12 +88,13 @@ void	draw_line(t_frame *frame, t_vec3 p1, t_vec3 p2, int color)
 // 		d.y = -d.y;
 // 	}
 // 	m = (2 * d.y) - d.x;
-// 	while (p1.x++ < p2.x)
+// 	while (p1.v.x++ < p2.v.x)
 // 	{
-// 		mlx_pixel_put_img(frame, p1.x, p1.y, color);
+// 		mlx_pixel_put_img(frame, p1.v.x, p1.v.y,
+// 			lerp_color(p1.color, p2.color, p1.v.x, p2.v.x));
 // 		if (m > 0)
 // 		{
-// 			p1.y += dir;
+// 			p1.v.y += dir;
 // 			m += 2 * (d.y - d.x);
 // 		}
 // 		else
@@ -88,13 +102,13 @@ void	draw_line(t_frame *frame, t_vec3 p1, t_vec3 p2, int color)
 // 	}
 // }
 
-// static void	draw_line_high(t_frame *frame, t_vec3 p1, t_vec3 p2, int color)
+// static void	draw_line_high(t_frame *frame, t_map p1, t_map p2)
 // {
 // 	t_vec3	d;
 // 	float	m;
 // 	int		dir;
 
-// 	d = vec3(p2.x - p1.x, p2.y - p1.y, 0.0);
+// 	d = vec3(p2.v.x - p1.v.x, p2.v.y - p1.v.y, 0.0);
 // 	dir = 1;
 // 	if (d.x < 0)
 // 	{
@@ -102,12 +116,13 @@ void	draw_line(t_frame *frame, t_vec3 p1, t_vec3 p2, int color)
 // 		d.x = -d.x;
 // 	}
 // 	m = (2 * d.x) - d.y;
-// 	while (p1.y++ < p2.y)
+// 	while (p1.v.y++ < p2.v.y)
 // 	{
-// 		mlx_pixel_put_img(frame, p1.x, p1.y, color);
+// 		mlx_pixel_put_img(frame, p1.v.x, p1.v.y,
+// 			lerp_color(p1.color, p2.color, p1.v.y, p2.v.y));
 // 		if (m > 0)
 // 		{
-// 			p1.x += dir;
+// 			p1.v.x += dir;
 // 			m += 2 * (d.x - d.y);
 // 		}
 // 		else

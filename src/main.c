@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 18:35:28 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/10 22:10:51 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/12 12:33:45 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	main(int argc, char *argv[])
 	fdf = init_all(argc, argv[1]);
 	if (DEBUG == 1)
 		draw_frame(fdf);
-	//mlx_mouse_hook(fdf->win, mouse_hooks, fdf);
+	// mlx_mouse_hook(fdf->win, mouse_hooks, fdf);
 	mlx_key_hook(fdf->win, key_hooks, fdf);
 	if (DEBUG == 0)
 		mlx_loop_hook(fdf->mlx, draw_frame, fdf);
@@ -42,15 +42,15 @@ static t_fdf	*init_all(int argc, char *path)
 			exit(EXIT_FAILURE);
 		fdf->screen = vec2(WIN_W, WIN_H);
 		get_matrix_size(path, &fdf->map_size);
+		if (DEBUG == 1)
+			print_vec2(fdf->map_size);
 		fdf->map = get_map(path, &fdf->map_size);
 		fdf->screen_map = init_screen_map(fdf);
-		if (DEBUG == 1)
-		{
-			print_vec2(fdf->map_size);
+		if (DB_MATRIX == 1)
 			ft_print_map(fdf->map, fdf->map_size);
-		}
 		init_frame(fdf, &fdf->frame);
-		fdf->t.scale = 2;
+		fdf->def_color = WHITE;
+		fdf->t.scale = 10;
 		fdf->t.rotation = vec3(238, 23, 0);
 		fdf->t.translation = vec3(0.5, 0, -0.5);
 		return (fdf);
@@ -71,6 +71,7 @@ static void	init_frame(t_fdf *fdf, t_frame *frame)
 static t_map	**init_screen_map(t_fdf *fdf)
 {
 	int		i;
+	int		j;
 	t_map	**map;
 
 	i = 0;
@@ -79,9 +80,15 @@ static t_map	**init_screen_map(t_fdf *fdf)
 		(exit(EXIT_FAILURE));
 	while (i < fdf->map_size.y)
 	{
+		j = 0;
 		map[i] = ft_calloc(fdf->map_size.x, sizeof(t_map));
 		if (!map[i])
 			exit(EXIT_FAILURE);
+		while (j < fdf->map_size.x)
+		{
+			map[i][j].color = fdf->map[i][j].color;
+			j++;
+		}
 		i++;
 	}
 	return (map);

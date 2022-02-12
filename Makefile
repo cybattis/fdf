@@ -11,7 +11,7 @@
 # ************************************************************************** #
 
 NAME 		=	fdf
-NAMED 		=	fdf_d
+NAME_DBG 		=	fdf_d
 LIB			=	lib
 LIBFT		=	libft
 MINILIBX	=	mlx
@@ -20,13 +20,9 @@ MINILIBX	=	mlx
 # ****************************************************************************
 
 CC 			=	gcc
-CFLAGS		=	-Wall -Werror -Wextra -O2 $(INCLUDE)
-DBFLAGS		=	$(CFLAGS) -g3 -fsanitize=address
+CFLAGS		=	-Wall -Werror -Wextra -O2 $(INCLUDE) #-g3 -fsanitize=address
 LIBFTFLAGS	=	-L $(LIB)/$(LIBFT) -lft
 LIBFTFLAGSD	=	-L $(LIB)/$(LIBFT) -lft_d
-
-AR_LIBFT	=	$(LIB)/libft.a
-AR_LIBFT_D	=	$(LIB)/libft_d.a
 
 OS			=	$(shell uname -s)
 ifeq ($(OS), Linux)
@@ -38,48 +34,46 @@ endif
 INCLUDE		=	-I $(LIB)/$(LIBFT)/includes -I includes -I $(LIB)/mlx
 DEPS		=	includes/fdf.h $(LIB)/$(LIBFT)/includes/libft.h
 
+AR_LIB		=	$(LIB)/$(LIBFT)/$(LIBFT).a
+AR_LIB_DBG	=	$(LIB)/$(LIBFT)/$(LIBFT)_d.a
+
 # Source files
 # ****************************************************************************
 
 DIR_SRCS	=	src
-SRCSFILE	=	main.c colors.c colors2.c draw.c draw_line.c draw_circle.c		\
+SRCSFILE	=	main.c colors.c colors2.c draw.c draw_line.c draw_circle.c	\
 				utils.c	hooks.c	map_parsing.c projection.c world_matrix.c	\
-				rotation_matrix.c utils_print.c
+				rotation_matrix.c utils_print.c strtrim.c
 
 SRCS		=	$(addprefix $(DIR_SRCS)/, $(SRCSFILE))
 
 DIR_OBJS	=	obj
 OBJS		=	$(addprefix $(DIR_OBJS)/, $(notdir $(SRCS:.c=.o)))
-DIR_OBJSD	=	obj_d
-OBJSD		=	$(addprefix $(DIR_OBJSD)/, $(notdir $(SRCS:.c=.o)))
 
 # Recipe
 # ****************************************************************************
+
+all: header compile
 
 $(DIR_OBJS)/%.o:	$(DIR_SRCS)/%.c $(DEPS) Makefile | $(DIR_OBJS)
 	@$(CC) $(CFLAGS) -c $< -o $@
 	@printf "$(_GREEN)█$(_END)"
 
-$(NAME):	$(AR_LIBFT) $(OBJS)
-	@printf "$(_END)\nCompiled source files\n"
+$(NAME): $(OBJS) $(AR_LIB)
+	@printf "$(_BLUE)\nCompiled source files\n"
 	@$(CC) $(CFLAGS) $(OBJS) $(LIBFTFLAGS) $(MLXFLAGS) -o $@
 	@printf "$(_GREEN)Finish compiling $(NAME)!$(_END)\n"
 
-# Debug
-# =====================
-$(DIR_OBJSD)/%.o:	$(DIR_SRCS)/%.c $(DEPS) Makefile | $(DIR_OBJSD)
-	@$(CC) $(DBFLAGS) -c $< -o $@
-	@printf "$(_GREEN)█$(_END)"
+$(NAME_DBG): $(OBJS) $(AR_LIB_DBG)
+	@printf "$(_BLUE)\nCompiled source files\n"
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBFTFLAGSD) $(MLXFLAGS) -o $@
+	@printf "$(_GREEN)Finish compiling $(NAME)!$(_END)\n"
 
-$(NAMED):	$(AR_LIBFT_D) $(OBJSD)
-	@printf "$(_END)\nCompiled debug source files\n"
-	@$(CC) $(DBFLAGS) $(OBJSD) $(LIBFTFLAGSD) $(MLXFLAGS) -o $@
-	@printf "$(_GREEN)Finish compiling in debug mode$(NAMED)!$(_END)\n"
+compile:
+	@$(MAKE) $(NAME) -C .
 
-# Action
-# =====================
-
-all:	$(NAME)
+debug: header
+	@$(MAKE) $(NAME_DBG) -C .
 
 clean:	header
 	@printf "$(_YELLOW)Removing object files ...$(_END)\n"
@@ -90,26 +84,20 @@ clean:	header
 fclean:	clean
 	@printf "$(_RED)Removing Executable ...$(_END)\n"
 	@make fclean -C $(LIB)/$(LIBFT)
-	@rm -rf $(NAME) $(NAMED)
+	@rm -rf $(NAME) $(NAME_DBG)
 
 re:		header fclean all
 
-debug:	header
-debug:	$(NAMED)
+$(AR_LIB):
+	@$(MAKE) -C $(LIB)/libft
 
-$(AR_LIBFT):
-	@$(MAKE) -C $(LIB)/$(LIBFT)
-
-$(AR_LIBFT_D):
-	@$(MAKE) debug -C $(LIB)/$(LIBFT)
+$(AR_LIB_DBG):
+	@$(MAKE) debug -C $(LIB)/libft
 
 $(DIR_OBJS):
 	@mkdir -p $(DIR_OBJS)
 
-$(DIR_OBJSD):
-	@mkdir -p $(DIR_OBJSD)
-
-.PHONY: all clean fclean re debug header
+.PHONY: all clean fclean re header debug compile
 
 # Misc
 # =====================
