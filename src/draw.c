@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 15:56:16 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/12 12:19:31 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/13 16:56:29 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	draw_frame(t_fdf *fdf)
 	if (DB_MATRIX == 1)
 	{
 		ft_dprintf(2, "\nWorld projection\n");
-		print_matrix44(projection.m);
+		print_matrix44(projection);
 		ft_dprintf(2, "\n");
 	}
 	map_projection(fdf, &projection);

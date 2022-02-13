@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 21:04:26 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/12 12:28:42 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/13 16:26:25 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	draw_line(t_fdf *fdf, t_map p1, t_map p2)
 			p1.color = fdf->def_color;
 		if (p2.color == 0)
 			p2.color = fdf->def_color;
-		if (v.x >= 0 && v.x <= WIN_W && v.y >= 0 && v.y <= WIN_H)
+		if (v.x >= 0 && v.x < WIN_W && v.y >= 0 && v.y < WIN_H)
 			mlx_pixel_put_img(&fdf->frame, v.x, v.y,
 				lerp_color(p1.color, p2.color, i, step));
 		vec2_add(&v, d);

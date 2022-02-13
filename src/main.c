@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 18:35:28 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/12 12:33:45 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/13 16:43:22 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ int	main(int argc, char *argv[])
 	fdf = init_all(argc, argv[1]);
 	if (DEBUG == 1)
 		draw_frame(fdf);
-	// mlx_mouse_hook(fdf->win, mouse_hooks, fdf);
-	mlx_key_hook(fdf->win, key_hooks, fdf);
+	mlx_hook(fdf->win, 2, 1L << 0, key_hooks, fdf);
 	if (DEBUG == 0)
 		mlx_loop_hook(fdf->mlx, draw_frame, fdf);
 	mlx_loop(fdf->mlx);
@@ -50,7 +49,7 @@ static t_fdf	*init_all(int argc, char *path)
 			ft_print_map(fdf->map, fdf->map_size);
 		init_frame(fdf, &fdf->frame);
 		fdf->def_color = WHITE;
-		fdf->t.scale = 10;
+		fdf->t.scale = 20;
 		fdf->t.rotation = vec3(238, 23, 0);
 		fdf->t.translation = vec3(0.5, 0, -0.5);
 		return (fdf);

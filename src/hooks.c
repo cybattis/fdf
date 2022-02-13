@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 17:57:26 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/12 11:56:37 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/13 17:01:22 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,15 @@ static int	option(int keycode);
 int	mouse_hooks(int mousecode, t_fdf *fdf)
 {
 	if (mousecode == 4)
+	{
 		ft_printf("Mouse wheel up\n", mousecode);
+		fdf->t.scale += 0.5;
+	}
 	else if (mousecode == 5)
+	{
 		ft_printf("Mouse wheel down\n", mousecode);
+		fdf->t.scale -= 0.5;
+	}
 	else
 		ft_printf("mousecode:%d\n", mousecode);
 	if (DEBUG == 1)
@@ -42,12 +48,7 @@ int	key_hooks(int keycode, t_fdf *fdf)
 		|| keycode == KEY_SPACE)
 		option(keycode);
 	else if (keycode == KEY_ESC)
-	{
-		mlx_destroy_image(fdf->mlx, fdf->frame.img);
-		mlx_destroy_window(fdf->mlx, fdf->win);
 		free_all(fdf);
-		exit(EXIT_SUCCESS);
-	}
 	else
 		ft_printf("keycode:%d\n", keycode);
 	if (DEBUG == 1)
@@ -61,17 +62,17 @@ int	key_hooks(int keycode, t_fdf *fdf)
 static int	movement(int keycode, t_fdf *fdf)
 {
 	if (keycode == KEY_LEFT)
-		fdf->t.rotation.y += 2;
+		fdf->t.rotation.y += 1;
 	else if (keycode == KEY_RIGHT)
-		fdf->t.rotation.y -= 2;
+		fdf->t.rotation.y -= 1;
 	else if (keycode == KEY_UP)
-		fdf->t.rotation.x -= 2;
+		fdf->t.rotation.x -= 1;
 	else if (keycode == KEY_DOWN)
-		fdf->t.rotation.x += 2;
+		fdf->t.rotation.x += 1;
 	else if (keycode == KEY_Q)
-		fdf->t.rotation.z -= 2;
+		fdf->t.rotation.z -= 1;
 	else if (keycode == KEY_E)
-		fdf->t.rotation.z += 2;
+		fdf->t.rotation.z += 1;
 	else if (keycode == KEY_Z)
 		fdf->t.scale += 0.5;
 	else if (keycode == KEY_X)

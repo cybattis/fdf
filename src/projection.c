@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 13:22:00 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/12 11:59:20 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/13 16:54:41 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ void	map_projection(t_fdf *fdf, t_matrix *projection)
 			fdf->screen_map[i][j].v.y = p.y + WIN_H / 2;
 			j++;
 		}
-		if (DB_MATRIX == 1)
-			ft_dprintf(2, "\n");
 		i++;
 	}
 }

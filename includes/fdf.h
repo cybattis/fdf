@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:33:14 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/12 12:40:51 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/13 17:08:48 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,23 +43,23 @@
 #  define KEY_DOWN	0xff54
 #  define KEY_F3	0xffc0
 # else
-#  define KEY_SPACE	49
-#  define KEY_A
-#  define KEY_D
-#  define KEY_E
+#  define KEY_A		0
+#  define KEY_S		1
+#  define KEY_D		2
 #  define KEY_F		3
-#  define KEY_P		35
+#  define KEY_Z		6
+#  define KEY_X		7
 #  define KEY_Q		12		// for ANSI
-#  define KEY_S
-#  define KEY_W
-#  define KEY_X
-#  define KEY_Z
+#  define KEY_W		13
+#  define KEY_E		14
+#  define KEY_P		35
 #  define KEY_ESC	53
+#  define KEY_SPACE	49
+#  define KEY_F3	99
 #  define KEY_LEFT	123
 #  define KEY_UP	126
 #  define KEY_RIGHT	124
 #  define KEY_DOWN	125
-#  define KEY_F3	99
 # endif
 
 # define BLACK		0x00000000
@@ -164,6 +164,6 @@ int			print_color(int trgb);
 void		ft_print_map(t_map	**map, t_vec2 size);
 void		print_vec2(t_vec2 v);
 void		print_vec3(t_vec3 v);
-void		print_matrix44(float m[][4]);
+void		print_matrix44(t_matrix matrix);
 
 #endif

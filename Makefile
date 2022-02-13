@@ -11,7 +11,7 @@
 # ************************************************************************** #
 
 NAME 		=	fdf
-NAME_DBG 		=	fdf_d
+NAME_DBG 	=	fdf_d
 LIB			=	lib
 LIBFT		=	libft
 MINILIBX	=	mlx
@@ -20,7 +20,7 @@ MINILIBX	=	mlx
 # ****************************************************************************
 
 CC 			=	gcc
-CFLAGS		=	-Wall -Werror -Wextra -O2 $(INCLUDE) #-g3 -fsanitize=address
+CFLAGS		=	-Wall -Werror -Wextra -O2 $(INCLUDE) -g3 -fsanitize=address
 LIBFTFLAGS	=	-L $(LIB)/$(LIBFT) -lft
 LIBFTFLAGSD	=	-L $(LIB)/$(LIBFT) -lft_d
 
@@ -32,7 +32,7 @@ else
 endif
 
 INCLUDE		=	-I $(LIB)/$(LIBFT)/includes -I includes -I $(LIB)/mlx
-DEPS		=	includes/fdf.h $(LIB)/$(LIBFT)/includes/libft.h
+DEPS		=	Makefile includes/fdf.h
 
 AR_LIB		=	$(LIB)/$(LIBFT)/$(LIBFT).a
 AR_LIB_DBG	=	$(LIB)/$(LIBFT)/$(LIBFT)_d.a
@@ -55,7 +55,7 @@ OBJS		=	$(addprefix $(DIR_OBJS)/, $(notdir $(SRCS:.c=.o)))
 
 all: header compile
 
-$(DIR_OBJS)/%.o:	$(DIR_SRCS)/%.c $(DEPS) Makefile | $(DIR_OBJS)
+$(DIR_OBJS)/%.o:	$(DIR_SRCS)/%.c $(DEPS) | $(DIR_OBJS)
 	@$(CC) $(CFLAGS) -c $< -o $@
 	@printf "$(_GREEN)█$(_END)"
 

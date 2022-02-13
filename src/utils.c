@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 15:27:01 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/11 13:43:07 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/13 16:21:37 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,12 @@
 
 void	free_all(t_fdf *fdf)
 {
+	mlx_destroy_image(fdf->mlx, fdf->frame.img);
+	mlx_destroy_window(fdf->mlx, fdf->win);
 	free_matrix(fdf->map, fdf->map_size.y - 1);
 	free_matrix(fdf->screen_map, fdf->map_size.y - 1);
 	free(fdf);
+	exit(EXIT_SUCCESS);
 }
 
 void	ft_ferror(int fd)
