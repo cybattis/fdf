@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 17:57:26 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/13 17:01:22 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/13 20:24:23 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,15 @@ static int	option(int keycode);
 
 int	mouse_hooks(int mousecode, t_fdf *fdf)
 {
+	ft_printf("%p\n", fdf);
 	if (mousecode == 4)
 	{
-		ft_printf("Mouse wheel up\n", mousecode);
+		ft_printf("Mouse wheel up\n");
 		fdf->t.scale += 0.5;
 	}
 	else if (mousecode == 5)
 	{
-		ft_printf("Mouse wheel down\n", mousecode);
+		ft_printf("Mouse wheel down\n");
 		fdf->t.scale -= 0.5;
 	}
 	else

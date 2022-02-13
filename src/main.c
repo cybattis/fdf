@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 18:35:28 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/13 16:43:22 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/13 20:28:49 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	main(int argc, char *argv[])
 	fdf = init_all(argc, argv[1]);
 	if (DEBUG == 1)
 		draw_frame(fdf);
+	//mlx_mouse_hook(fdf->win, mouse_hooks, fdf);
 	mlx_hook(fdf->win, 2, 1L << 0, key_hooks, fdf);
 	if (DEBUG == 0)
 		mlx_loop_hook(fdf->mlx, draw_frame, fdf);
@@ -39,6 +40,7 @@ static t_fdf	*init_all(int argc, char *path)
 		fdf = ft_calloc(1, sizeof(t_fdf));
 		if (!fdf)
 			exit(EXIT_FAILURE);
+		ft_printf("%p\n", fdf);
 		fdf->screen = vec2(WIN_W, WIN_H);
 		get_matrix_size(path, &fdf->map_size);
 		if (DEBUG == 1)

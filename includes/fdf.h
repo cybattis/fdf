@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:33:14 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/13 17:08:48 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/13 20:27:10 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@
 # define YELLOW		0x00FFFF00
 # define TURQUOISE	0x0000FFFF
 
-# define DEBUG		1
+# define DEBUG		0
 # define DB_MATRIX	0
 # define DB_COLOR	0
 
