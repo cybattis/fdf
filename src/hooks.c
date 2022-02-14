@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 17:57:26 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/14 10:54:39 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/14 19:22:31 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	key_hooks(int keycode, t_fdf *fdf)
 		|| keycode == KEY_SPACE)
 		option(keycode);
 	else if (keycode == KEY_ESC)
-		free_all(fdf);
+		close_app(fdf);
 	else
 		ft_printf("keycode:%d\n", keycode);
 	if (DEBUG == 1)

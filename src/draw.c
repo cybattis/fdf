@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 15:56:16 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/13 16:56:29 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/14 16:10:44 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	draw_frame(t_fdf *fdf)
 	map_projection(fdf, &projection);
 	draw_map(fdf, fdf->map_size);
 	mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->frame.img, 0, 0);
+	reset_depth_map(fdf);
 	return (0);
 }
 

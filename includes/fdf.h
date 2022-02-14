@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:33:14 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/14 10:54:58 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/14 19:24:26 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <errno.h>
 # include <math.h>
 # include <fcntl.h>
+# include <limits.h>
+# include <float.h>
 # include "libft.h"
 # include "mlx.h"
 
@@ -71,7 +73,7 @@
 # define YELLOW		0x00FFFF00
 # define TURQUOISE	0x0000FFFF
 
-# define DEBUG		1
+# define DEBUG		0
 # define DB_MATRIX	0
 # define DB_COLOR	0
 
@@ -104,7 +106,11 @@ typedef struct s_fdf {
 	t_frame		frame;
 	t_transform	t;
 	int			def_color;
+	float		**depth_map;
 }	t_fdf;
+
+void		init_depth_map(t_fdf *fdf);
+void		reset_depth_map(t_fdf *fdf);
 
 void		map_projection(t_fdf *fdf, t_matrix *projection);
 void		screen_projection(t_fdf *fdf, t_matrix *projection);
@@ -157,7 +163,8 @@ void		strtrimr(char *str);
 void		ft_ferror(int fd);
 void		ft_error_msg(char *msg);
 void		free_matrix(t_map **map, int i);
-void		free_all(t_fdf *fdf);
+int			close_app(t_fdf *fdf);
+void		free_depth_map(float **depth_map, int i);
 
 /* utils_print.c */
 int			print_color(int trgb);
