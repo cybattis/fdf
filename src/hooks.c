@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 17:57:26 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/13 20:24:23 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/14 10:54:39 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	key_hooks(int keycode, t_fdf *fdf)
 	if (DEBUG == 1)
 	{
 		draw_frame(fdf);
-		print_vec3(fdf->t.rotation);
+		//print_vec3(fdf->t.rotation);
 	}
 	return (0);
 }
