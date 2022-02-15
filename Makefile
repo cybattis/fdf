@@ -32,7 +32,7 @@ else
 endif
 
 INCLUDE		=	-I $(LIB)/$(LIBFT)/includes -I includes -I $(LIB)/mlx
-DEPS		=	Makefile includes/fdf.h
+DEPS		=	includes/fdf.h $(LIB)/$(LIBFT)/includes/libft.h
 
 AR_LIB		=	$(LIB)/$(LIBFT)/$(LIBFT).a
 AR_LIB_DBG	=	$(LIB)/$(LIBFT)/$(LIBFT)_d.a

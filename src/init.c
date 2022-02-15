@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 10:47:15 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/15 16:25:45 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/15 16:58:10 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ t_app	*init_app(int argc, char *path)
 		get_matrix_size(path, fdf);
 		init_window(fdf, &fdf->frame);
 		fdf->map = get_map(path, fdf);
+		fdf->def_color = WHITE;
 		fdf->screen_map = init_screen_map(fdf);
 		init_depth_map(fdf);
-		fdf->def_color = WHITE;
 		fdf->screen = vec2(WIN_W, WIN_H);
 		fdf->t.scale = 20;
 		fdf->t.rotation = vec3(238, 23, 0);
@@ -82,7 +82,7 @@ static t_map	**init_screen_map(t_app *fdf)
 		}
 		while (j < fdf->map_size.x)
 		{
-			map[i][j].color = fdf->map[i][j].color;
+			map[i][j].color = set_color(fdf, fdf->map[i][j].color);
 			j++;
 		}
 		i++;

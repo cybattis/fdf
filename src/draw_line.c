@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 21:04:26 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/15 16:38:22 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/15 17:06:00 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,24 +27,24 @@ void	draw_line(t_app *fdf, t_map p1, t_map p2)
 	d = vec3(d.x / step, d.y / step, d.z / step);
 	v = vec3(p1.v.x, p1.v.y, p1.v.z);
 	i = 0;
-	while (i <= step)
+	while (i++ <= step)
 	{
-		if (p1.color == 0)
-			p1.color = fdf->def_color;
-		if (p2.color == 0)
-			p2.color = fdf->def_color;
-		if (v.x >= 0 && v.x < WIN_W && v.y >= 0 && v.y < WIN_H)
+		if (v.x >= 0 && v.x < WIN_W && v.y >= 0 && v.y < WIN_H
+			&& v.z < fdf->depth_map[(int)v.y][(int)v.x])
 		{
-			if (v.z < fdf->depth_map[(int)v.y][(int)v.x])
-			{
-				mlx_pixel_put_img(&fdf->frame, v.x, v.y,
-					lerp_color(p1.color, p2.color, i, step));
-				fdf->depth_map[(int)v.y][(int)v.x] = (int)v.z;
-			}
+			mlx_pixel_put_img(&fdf->frame, v.x, v.y,
+				lerp_color(p1.color, p2.color, i, step));
+			fdf->depth_map[(int)v.y][(int)v.x] = (int)v.z;
 		}
 		vec3_add(&v, d);
-		i++;
 	}
+}
+
+int	set_color(t_app *fdf, int color)
+{
+	if (color == 0)
+		return (fdf->def_color);
+	return (color);
 }
 
 int	lerp_color(int a, int b, int i, int max)
@@ -58,4 +58,3 @@ int	lerp_color(int a, int b, int i, int max)
 				((get_b(b) - get_b(a)) * i / max + get_b(a)));
 	return (out);
 }
-

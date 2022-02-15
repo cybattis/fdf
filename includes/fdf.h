@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:33:14 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/15 16:41:57 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/15 17:06:14 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,13 +128,14 @@ void		get_matrix_size(char *path, t_app *fdf);
 t_map		**get_map(char *path, t_app *fdf);
 
 /* draw.c */
+void		clear_screen(t_app *fdf, int color);
 int			draw_frame(t_app *fdf);
 void		draw_map(t_app *fdf, t_vec2 map_size);
 void		mlx_pixel_put_img(t_frame *frame, int x, int y, int color);
-void		clear_screen(t_app *fdf, int color);
 
 /* draw_line.c */
 void		draw_line(t_app *fdf, t_map p1, t_map p2);
+int			set_color(t_app *fdf, int color);
 int			lerp_color(int a, int b, int i, int max);
 
 /* draw_circle.c */
