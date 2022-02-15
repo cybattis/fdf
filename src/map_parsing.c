@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 17:32:25 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/15 11:08:03 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/15 16:23:16 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static float	get_size_x(char *line);
 static t_map	*parse_line(char *line, t_vec2 *size, int i);
 static int		parse_color(char *str);
 
-void	get_matrix_size(char *path, t_vec2 *size)
+void	get_matrix_size(char *path, t_app *fdf)
 {
 	char	*line;
 	int		fd;
@@ -27,11 +27,13 @@ void	get_matrix_size(char *path, t_vec2 *size)
 	while (line != NULL)
 	{
 		strtrimr(line);
-		size->x = get_size_x(line);
-		size->y++;
+		fdf->map_size.x = get_size_x(line);
+		fdf->map_size.y++;
 		free(line);
 		line = ft_get_next_line(fd);
 	}
+	if (fdf->map_size.x == 0 || fdf->map_size.y == 0)
+		ft_free_fdf(fdf);
 	close(fd);
 }
 
@@ -55,7 +57,7 @@ static float	get_size_x(char *line)
 	return (prev_size);
 }
 
-t_map	**get_map(char *path, t_vec2 *map_size)
+t_map	**get_map(char *path, t_app *fdf)
 {
 	int		i;
 	char	*line;
@@ -65,13 +67,18 @@ t_map	**get_map(char *path, t_vec2 *map_size)
 	fd = open(path, O_RDONLY);
 	ft_ferror(fd);
 	i = 0;
-	map = malloc(sizeof(t_map *) * map_size->y);
+	map = malloc(sizeof(t_map *) * fdf->map_size.y);
 	if (!map)
-		(exit(EXIT_FAILURE));
+		ft_free_fdf(fdf);
 	line = ft_get_next_line(fd);
-	while (line != NULL && i < map_size->y)
+	while (line != NULL && i < fdf->map_size.y)
 	{
-		map[i] = parse_line(line, map_size, i);
+		map[i] = parse_line(line, &fdf->map_size, i);
+		if (!map[i])
+		{
+			ft_free_2d((void **)map, i);
+			ft_free_fdf(fdf);
+		}
 		i++;
 		line = ft_get_next_line(fd);
 	}
@@ -88,10 +95,10 @@ static t_map	*parse_line(char *line, t_vec2 *size, int i)
 
 	j = 0;
 	line_split = ft_split(line, ' ');
-	free(line);
 	map_line = malloc(sizeof(t_map) * size->x);
-	if (!map_line)
-		exit(EXIT_FAILURE);
+	if (!map_line || !line_split)
+		return (NULL);
+	free(line);
 	while (j < size->x)
 	{
 		map_line[j].v.x = (-size->x / 2) + j;

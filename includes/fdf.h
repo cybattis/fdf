@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:33:14 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/15 11:06:41 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/15 16:41:57 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,8 +124,8 @@ void		model_to_view_matrix(t_matrix *view, t_transform t, t_vec3 eye);
 void		rotation_matrix(t_matrix *p_x, t_vec3 angle);
 
 /* map_parsing.c */
-void		get_matrix_size(char *path, t_vec2 *size);
-t_map		**get_map(char *path, t_vec2 *map_size);
+void		get_matrix_size(char *path, t_app *fdf);
+t_map		**get_map(char *path, t_app *fdf);
 
 /* draw.c */
 int			draw_frame(t_app *fdf);
@@ -142,7 +142,7 @@ void		draw_circle(t_frame *frame, t_vec3 origin, int r, int color);
 
 /* hooks.c.c */
 int			key_hooks(int keycode, t_app *fdf);
-int			mouse_hooks(int mousecode, t_app *fdf);
+int			mouse_hooks(int mousecode, int x, int y, t_app *fdf);
 
 /* colors.c */
 int			create_trgb(int t, int r, int g, int b);
@@ -150,10 +150,6 @@ int			get_t(int trgb);
 int			get_r(int trgb);
 int			get_g(int trgb);
 int			get_b(int trgb);
-
-/* colors2.c */
-int			get_opposite(int trgb);
-int			add_shade(float distance, int trgb);
 
 /* strtrim.c */
 void		strtrim(char *str);
@@ -163,9 +159,9 @@ void		strtrimr(char *str);
 /* utils.c */
 void		ft_ferror(int fd);
 void		ft_error_msg(char *msg);
-void		free_matrix(t_map **map, int i);
 int			close_app(t_app *fdf);
-void		free_depth_map(float **depth_map, int i);
+void		ft_free_fdf(t_app *fdf);
+void		ft_free_2d(void **ptr, int i);
 
 /* utils_print.c */
 int			print_color(int trgb);

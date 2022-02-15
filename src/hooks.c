@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 17:57:26 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/15 10:46:43 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/15 14:42:51 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,14 @@ static int	translation(int keycode, t_app *fdf);
 static int	movement(int keycode, t_app *fdf);
 static int	option(int keycode);
 
-int	mouse_hooks(int mousecode, t_app *fdf)
+int	mouse_hooks(int mousecode, int x, int y, t_app *fdf)
 {
-	ft_printf("%p\n", fdf);
+	(void)x;
+	(void)y;
 	if (mousecode == 4)
-	{
-		ft_printf("Mouse wheel up\n");
 		fdf->t.scale += 0.5;
-	}
 	else if (mousecode == 5)
-	{
-		ft_printf("Mouse wheel down\n");
 		fdf->t.scale -= 0.5;
-	}
 	else
 		ft_printf("mousecode:%d\n", mousecode);
 	return (0);

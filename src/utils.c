@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 15:27:01 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/15 11:06:34 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/15 16:11:23 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ int	close_app(t_app *fdf)
 {
 	mlx_destroy_image(fdf->mlx, fdf->frame.img);
 	mlx_destroy_window(fdf->mlx, fdf->win);
-	free_depth_map(fdf->depth_map, WIN_H - 1);
-	free_matrix(fdf->map, fdf->map_size.y - 1);
-	free_matrix(fdf->screen_map, fdf->map_size.y - 1);
+	ft_free_2d((void **)fdf->map, fdf->map_size.y - 1);
+	ft_free_2d((void **)fdf->screen_map, fdf->map_size.y - 1);
+	ft_free_2d((void **)fdf->depth_map, WIN_H - 1);
 	free(fdf);
 	exit(EXIT_SUCCESS);
 }
@@ -38,18 +38,26 @@ void	ft_error_msg(char *msg)
 	exit(EXIT_FAILURE);
 }
 
-void	free_matrix(t_map **map, int i)
+void	ft_free_2d(void **ptr, int i)
 {
 	while (i)
-		free(map[i--]);
-	free(map[i]);
-	free(map);
+		free(ptr[i--]);
+	free(ptr[i]);
+	free(ptr);
 }
 
-void	free_depth_map(float **depth_map, int i)
+void	ft_free_fdf(t_app *fdf)
 {
-	while (i)
-		free(depth_map[i--]);
-	free(depth_map[i]);
-	free(depth_map);
+	if (fdf->mlx && fdf->frame.img)
+		mlx_destroy_image(fdf->mlx, fdf->frame.img);
+	if (fdf->mlx && fdf->win)
+		mlx_destroy_window(fdf->mlx, fdf->win);
+	if (fdf->map)
+		ft_free_2d((void **)fdf->map, fdf->map_size.y - 1);
+	if (fdf->screen_map)
+		ft_free_2d((void **)fdf->screen_map, fdf->map_size.y - 1);
+	if (fdf->depth_map)
+		ft_free_2d((void **)fdf->depth_map, WIN_H - 1);
+	free(fdf);
+	exit(EXIT_FAILURE);
 }
