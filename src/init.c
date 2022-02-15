@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 10:47:15 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/15 11:10:28 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/15 12:40:52 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void		init_depth_map(t_app *fdf);
 static t_map	**init_screen_map(t_app *fdf);
-static void		init_frame(t_app *fdf, t_frame *frame);
+static void		init_window(t_app *fdf, t_frame *frame);
 
 t_app	*init_app(int argc, char *path)
 {
@@ -29,7 +29,7 @@ t_app	*init_app(int argc, char *path)
 		fdf->map = get_map(path, &fdf->map_size);
 		fdf->screen_map = init_screen_map(fdf);
 		init_depth_map(fdf);
-		init_frame(fdf, &fdf->frame);
+		init_window(fdf, &fdf->frame);
 		fdf->def_color = WHITE;
 		fdf->screen = vec2(WIN_W, WIN_H);
 		fdf->t.scale = 20;
@@ -41,7 +41,7 @@ t_app	*init_app(int argc, char *path)
 	exit(EXIT_FAILURE);
 }
 
-static void	init_frame(t_app *fdf, t_frame *frame)
+static void	init_window(t_app *fdf, t_frame *frame)
 {
 	fdf->mlx = mlx_init();
 	fdf->win = mlx_new_window(fdf->mlx, WIN_W, WIN_H, "FdF");

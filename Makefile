@@ -26,7 +26,7 @@ LIBFTFLAGSD	=	-L $(LIB)/$(LIBFT) -lft_d
 
 OS			=	$(shell uname -s)
 ifeq ($(OS), Linux)
-	MLXFLAGS	=	-L $(LIB) -lmlx -L/usr/X11/lib -Imlx_linux -lXext -lX11 -lm -lz
+	MLXFLAGS	=	-L $(LIB) -lmlx_linux -L/usr/X11/lib -Imlx_linux -lXext -lX11 -lm -lz
 else
 	MLXFLAGS	=	-L $(LIB)/mlx -lmlx -framework OpenGL -framework AppKit
 endif
