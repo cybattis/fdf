@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:33:14 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/15 17:06:14 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/15 23:02:34 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@
 #  define KEY_SPACE	0x20
 #  define KEY_A		0x61
 #  define KEY_D		0x64
-#  define KEY_E		0x65	// for ANSI
+#  define KEY_E		0x65
 #  define KEY_F		0x66
-#  define KEY_P		0x70
+#  define KEY_R		0x72
 #  define KEY_Q		0x71
 #  define KEY_S		0x73
 #  define KEY_W		0x77
@@ -51,10 +51,10 @@
 #  define KEY_F		3
 #  define KEY_Z		6
 #  define KEY_X		7
-#  define KEY_Q		12		// for ANSI
+#  define KEY_Q		12
 #  define KEY_W		13
 #  define KEY_E		14
-#  define KEY_P		35
+#  define KEY_R		15
 #  define KEY_ESC	53
 #  define KEY_SPACE	49
 #  define KEY_F3	99
@@ -76,6 +76,9 @@
 # define DEBUG		0
 # define DB_MATRIX	0
 # define DB_COLOR	0
+
+# define ANIM_OFF	0
+# define ANIM_ON	1
 
 typedef struct s_map {
 	t_vec3	v;
@@ -107,14 +110,16 @@ typedef struct s_fdf {
 	t_transform	t;
 	int			def_color;
 	float		**depth_map;
+	int			flags;
 }	t_app;
 
 /* init.c */
 t_app		*init_app(int argc, char *path);
-void		reset_depth_map(t_app *fdf);
+void		init_transformation(t_app *fdf);
 
+/* projection.c */
 void		map_projection(t_app *fdf, t_matrix *projection);
-void		screen_projection(t_app *fdf, t_matrix *projection);
+void		animation(t_app *fdf);
 
 /* matrix.c */
 void		world_matrix(t_transform t, t_matrix *world);
@@ -132,6 +137,7 @@ void		clear_screen(t_app *fdf, int color);
 int			draw_frame(t_app *fdf);
 void		draw_map(t_app *fdf, t_vec2 map_size);
 void		mlx_pixel_put_img(t_frame *frame, int x, int y, int color);
+void		reset_depth_map(t_app *fdf);
 
 /* draw_line.c */
 void		draw_line(t_app *fdf, t_map p1, t_map p2);
@@ -145,24 +151,24 @@ void		draw_circle(t_frame *frame, t_vec3 origin, int r, int color);
 int			key_hooks(int keycode, t_app *fdf);
 int			mouse_hooks(int mousecode, int x, int y, t_app *fdf);
 
-/* colors.c */
-int			create_trgb(int t, int r, int g, int b);
-int			get_t(int trgb);
-int			get_r(int trgb);
-int			get_g(int trgb);
-int			get_b(int trgb);
+/* utils.c */
+void		ft_ferror(int fd);
+void		ft_error_msg(char *msg);
+int			close_app(t_app *fdf);
+void		error_close_app(t_app *fdf);
+void		ft_free_2d(void **ptr, int i);
 
 /* strtrim.c */
 void		strtrim(char *str);
 char		*strtriml(char *str);
 void		strtrimr(char *str);
 
-/* utils.c */
-void		ft_ferror(int fd);
-void		ft_error_msg(char *msg);
-int			close_app(t_app *fdf);
-void		ft_free_fdf(t_app *fdf);
-void		ft_free_2d(void **ptr, int i);
+/* colors.c */
+int			create_trgb(int t, int r, int g, int b);
+int			get_t(int trgb);
+int			get_r(int trgb);
+int			get_g(int trgb);
+int			get_b(int trgb);
 
 /* utils_print.c */
 int			print_color(int trgb);

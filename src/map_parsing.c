@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 17:32:25 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/15 16:23:16 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/15 22:50:03 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	get_matrix_size(char *path, t_app *fdf)
 		line = ft_get_next_line(fd);
 	}
 	if (fdf->map_size.x == 0 || fdf->map_size.y == 0)
-		ft_free_fdf(fdf);
+		error_close_app(fdf);
 	close(fd);
 }
 
@@ -69,7 +69,7 @@ t_map	**get_map(char *path, t_app *fdf)
 	i = 0;
 	map = malloc(sizeof(t_map *) * fdf->map_size.y);
 	if (!map)
-		ft_free_fdf(fdf);
+		error_close_app(fdf);
 	line = ft_get_next_line(fd);
 	while (line != NULL && i < fdf->map_size.y)
 	{
@@ -77,7 +77,7 @@ t_map	**get_map(char *path, t_app *fdf)
 		if (!map[i])
 		{
 			ft_free_2d((void **)map, i);
-			ft_free_fdf(fdf);
+			error_close_app(fdf);
 		}
 		i++;
 		line = ft_get_next_line(fd);

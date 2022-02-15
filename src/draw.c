@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 15:56:16 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/15 10:46:43 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/15 23:01:09 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	draw_frame(t_app *fdf)
 	draw_map(fdf, fdf->map_size);
 	mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->frame.img, 0, 0);
 	reset_depth_map(fdf);
+	animation(fdf);
 	return (0);
 }
 
@@ -78,4 +79,22 @@ void	mlx_pixel_put_img(t_frame *frame, int x, int y, int color)
 	dst = frame->addr
 		+ (y * frame->line_length + x * (frame->bits_pp / 8));
 	*(unsigned int *)dst = color;
+}
+
+void	reset_depth_map(t_app *fdf)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < WIN_H)
+	{
+		j = 0;
+		while (j < WIN_W)
+		{
+			fdf->depth_map[i][j] = INT_MAX;
+			j++;
+		}
+		i++;
+	}
 }

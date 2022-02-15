@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 13:22:00 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/15 10:46:43 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/15 23:00:13 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,14 @@ void	map_projection(t_app *fdf, t_matrix *projection)
 			j++;
 		}
 		i++;
+	}
+}
+
+void	animation(t_app *fdf)
+{
+	if ((fdf->flags & ANIM_ON) != 0)
+	{
+		fdf->t.rotation.y += 0.05;
+		fdf->t.rotation.x += 0.05;
 	}
 }
