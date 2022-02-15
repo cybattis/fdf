@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 15:56:16 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/15 23:01:09 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/15 23:14:46 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,6 @@ int	draw_frame(t_app *fdf)
 	clear_screen(fdf, create_trgb(0, 55, 70, 75));
 	draw_circle(&fdf->frame, vec3(WIN_W / 2, WIN_H / 2, 1), 5, RED);
 	world_matrix(fdf->t, &projection);
-	if (DB_MATRIX == 1)
-	{
-		ft_dprintf(2, "\nWorld projection\n");
-		print_matrix44(projection);
-		ft_dprintf(2, "\n");
-	}
 	map_projection(fdf, &projection);
 	draw_map(fdf, fdf->map_size);
 	mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->frame.img, 0, 0);
