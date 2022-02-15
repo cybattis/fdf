@@ -26,11 +26,12 @@ LIBFDFFLAGSD	=	-L $(LIBFDF) -lfdf_d
 OS			=	$(shell uname -s)
 ifeq ($(OS), Linux)
 	MLXFLAGS	=	-L /usr/local/lib -lmlx_Linux -L/usr/X11/lib -I/usr/local/include -lXext -lX11 -lm -lz
+	INCLUDE		=	-I $(LIBFDF)/includes -I includes
 else
-	MLXFLAGS	=	-L mlx -lmlx -framework OpenGL -framework AppKit -I
+	MLXFLAGS	=	-L mlx -lmlx -framework OpenGL -framework AppKit
+	INCLUDE		=	-I $(LIBFDF)/includes -I includes -I
 endif
 
-INCLUDE		=	-I $(LIBFDF)/includes -I includes
 DEPS		=	includes/fdf.h $(LIBFDF)/includes/libfdf.h
 
 AR_LIB		=	$(LIBFDF)/$(LIBFDF).a
