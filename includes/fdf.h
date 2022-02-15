@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:33:14 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/14 19:24:26 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/15 11:06:41 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,13 +107,14 @@ typedef struct s_fdf {
 	t_transform	t;
 	int			def_color;
 	float		**depth_map;
-}	t_fdf;
+}	t_app;
 
-void		init_depth_map(t_fdf *fdf);
-void		reset_depth_map(t_fdf *fdf);
+/* init.c */
+t_app		*init_app(int argc, char *path);
+void		reset_depth_map(t_app *fdf);
 
-void		map_projection(t_fdf *fdf, t_matrix *projection);
-void		screen_projection(t_fdf *fdf, t_matrix *projection);
+void		map_projection(t_app *fdf, t_matrix *projection);
+void		screen_projection(t_app *fdf, t_matrix *projection);
 
 /* matrix.c */
 void		world_matrix(t_transform t, t_matrix *world);
@@ -127,21 +128,21 @@ void		get_matrix_size(char *path, t_vec2 *size);
 t_map		**get_map(char *path, t_vec2 *map_size);
 
 /* draw.c */
-int			draw_frame(t_fdf *fdf);
-void		draw_map(t_fdf *fdf, t_vec2 map_size);
+int			draw_frame(t_app *fdf);
+void		draw_map(t_app *fdf, t_vec2 map_size);
 void		mlx_pixel_put_img(t_frame *frame, int x, int y, int color);
-void		clear_screen(t_fdf *fdf, int color);
+void		clear_screen(t_app *fdf, int color);
 
 /* draw_line.c */
-void		draw_line(t_fdf *fdf, t_map p1, t_map p2);
+void		draw_line(t_app *fdf, t_map p1, t_map p2);
 int			lerp_color(int a, int b, int i, int max);
 
 /* draw_circle.c */
 void		draw_circle(t_frame *frame, t_vec3 origin, int r, int color);
 
 /* hooks.c.c */
-int			key_hooks(int keycode, t_fdf *fdf);
-int			mouse_hooks(int mousecode, t_fdf *fdf);
+int			key_hooks(int keycode, t_app *fdf);
+int			mouse_hooks(int mousecode, t_app *fdf);
 
 /* colors.c */
 int			create_trgb(int t, int r, int g, int b);
@@ -163,7 +164,7 @@ void		strtrimr(char *str);
 void		ft_ferror(int fd);
 void		ft_error_msg(char *msg);
 void		free_matrix(t_map **map, int i);
-int			close_app(t_fdf *fdf);
+int			close_app(t_app *fdf);
 void		free_depth_map(float **depth_map, int i);
 
 /* utils_print.c */

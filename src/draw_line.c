@@ -6,13 +6,13 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 21:04:26 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/14 17:31:23 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/15 10:46:43 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	draw_line(t_fdf *fdf, t_map p1, t_map p2)
+void	draw_line(t_app *fdf, t_map p1, t_map p2)
 {
 	t_vec3	v;
 	t_vec3	d;
@@ -63,7 +63,7 @@ int	lerp_color(int a, int b, int i, int max)
 // static void	draw_line_low(t_frame *frame, t_map p1, t_map p2);
 // static void	draw_line_high(t_frame *frame, t_map p1, t_map p2);
 
-// void	draw_line(t_fdf *fdf, t_map p1, t_map p2)
+// void	draw_line(t_app *fdf, t_map p1, t_map p2)
 // {
 // 	if (fabs(p2.v.y - p1.v.y) < fabs(p2.v.x - p1.v.x))
 // 	{

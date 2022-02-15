@@ -6,17 +6,17 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 17:57:26 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/14 19:22:31 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/15 10:46:43 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static int	translation(int keycode, t_fdf *fdf);
-static int	movement(int keycode, t_fdf *fdf);
+static int	translation(int keycode, t_app *fdf);
+static int	movement(int keycode, t_app *fdf);
 static int	option(int keycode);
 
-int	mouse_hooks(int mousecode, t_fdf *fdf)
+int	mouse_hooks(int mousecode, t_app *fdf)
 {
 	ft_printf("%p\n", fdf);
 	if (mousecode == 4)
@@ -31,12 +31,10 @@ int	mouse_hooks(int mousecode, t_fdf *fdf)
 	}
 	else
 		ft_printf("mousecode:%d\n", mousecode);
-	if (DEBUG == 1)
-		draw_frame(fdf);
 	return (0);
 }
 
-int	key_hooks(int keycode, t_fdf *fdf)
+int	key_hooks(int keycode, t_app *fdf)
 {
 	if (keycode == KEY_LEFT || keycode == KEY_UP || keycode == KEY_RIGHT
 		|| keycode == KEY_DOWN || keycode == KEY_Q || keycode == KEY_E
@@ -52,15 +50,10 @@ int	key_hooks(int keycode, t_fdf *fdf)
 		close_app(fdf);
 	else
 		ft_printf("keycode:%d\n", keycode);
-	if (DEBUG == 1)
-	{
-		draw_frame(fdf);
-		//print_vec3(fdf->t.rotation);
-	}
 	return (0);
 }
 
-static int	movement(int keycode, t_fdf *fdf)
+static int	movement(int keycode, t_app *fdf)
 {
 	if (keycode == KEY_LEFT)
 		fdf->t.rotation.y += 1;
@@ -94,7 +87,7 @@ static int	option(int keycode)
 	return (0);
 }
 
-static int	translation(int keycode, t_fdf *fdf)
+static int	translation(int keycode, t_app *fdf)
 {
 	if (keycode == KEY_W)
 		fdf->t.translation.z += 1;

@@ -43,7 +43,7 @@ AR_LIB_DBG	=	$(LIB)/$(LIBFT)/$(LIBFT)_d.a
 DIR_SRCS	=	src
 SRCSFILE	=	main.c colors.c colors2.c draw.c draw_line.c draw_circle.c	\
 				utils.c	hooks.c	map_parsing.c projection.c world_matrix.c	\
-				rotation_matrix.c utils_print.c strtrim.c
+				rotation_matrix.c utils_print.c init.c strtrim.c
 
 SRCS		=	$(addprefix $(DIR_SRCS)/, $(SRCSFILE))
 

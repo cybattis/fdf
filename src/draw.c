@@ -6,13 +6,13 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 15:56:16 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/14 16:10:44 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/15 10:46:43 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	draw_frame(t_fdf *fdf)
+int	draw_frame(t_app *fdf)
 {
 	t_matrix	projection;
 
@@ -32,7 +32,7 @@ int	draw_frame(t_fdf *fdf)
 	return (0);
 }
 
-void	draw_map(t_fdf *fdf, t_vec2 map_size)
+void	draw_map(t_app *fdf, t_vec2 map_size)
 {
 	int		i;
 	int		j;
@@ -55,7 +55,7 @@ void	draw_map(t_fdf *fdf, t_vec2 map_size)
 	}
 }
 
-void	clear_screen(t_fdf *fdf, int color)
+void	clear_screen(t_app *fdf, int color)
 {
 	int	i;
 	int	total;
