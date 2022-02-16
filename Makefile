@@ -18,9 +18,10 @@ MINILIBX	=	mlx
 # Config
 # ****************************************************************************
 
-CC 			=	gcc
-CFLAGS		=	-Wall -Werror -Wextra -O2 $(INCLUDE) -g3 -fsanitize=address
-LIBFDFFLAGS	=	-L $(LIBFDF) -lfdf
+CC 				=	gcc
+CFLAGS			=	-Wall -Werror -Wextra -O2 $(DBGFLAGS) $(INCLUDE)
+DBGFLAGS		=	-g3 -fsanitize=address
+LIBFDFFLAGS		=	-L $(LIBFDF) -lfdf
 LIBFDFFLAGSD	=	-L $(LIBFDF) -lfdf_d
 
 OS			=	$(shell uname -s)
