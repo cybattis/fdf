@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:33:14 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/15 23:02:34 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/16 12:20:03 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <fcntl.h>
 # include <limits.h>
 # include <float.h>
-# include "libft.h"
+# include "libfdf.h"
 # include "mlx.h"
 
 # define WIN_W		960

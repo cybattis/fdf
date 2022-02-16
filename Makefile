@@ -12,8 +12,7 @@
 
 NAME 		=	fdf
 NAME_DBG 	=	fdf_d
-LIB			=	lib
-LIBFT		=	libft
+LIBFDF		=	libfdf
 MINILIBX	=	mlx
 
 # Config
@@ -21,21 +20,21 @@ MINILIBX	=	mlx
 
 CC 			=	gcc
 CFLAGS		=	-Wall -Werror -Wextra -O2 $(INCLUDE) -g3 -fsanitize=address
-LIBFTFLAGS	=	-L $(LIB)/$(LIBFT) -lft
-LIBFTFLAGSD	=	-L $(LIB)/$(LIBFT) -lft_d
+LIBFDFFLAGS	=	-L $(LIBFDF) -lfdf
+LIBFDFFLAGSD	=	-L $(LIBFDF) -lfdf_d
 
 OS			=	$(shell uname -s)
 ifeq ($(OS), Linux)
-	MLXFLAGS	=	-L $(LIB) -lmlx_linux -L/usr/X11/lib -Imlx_linux -lXext -lX11 -lm -lz
+	MLXFLAGS	=	-L /usr/local/lib -lmlx_Linux -L/usr/X11/lib -I/usr/local/include -lXext -lX11 -lm -lz
 else
-	MLXFLAGS	=	-L $(LIB)/mlx -lmlx -framework OpenGL -framework AppKit
+	MLXFLAGS	=	-L mlx -lmlx -framework OpenGL -framework AppKit -I
 endif
 
-INCLUDE		=	-I $(LIB)/$(LIBFT)/includes -I includes -I $(LIB)/mlx
-DEPS		=	includes/fdf.h $(LIB)/$(LIBFT)/includes/libft.h
+INCLUDE		=	-I $(LIBFDF)/includes -I includes
+DEPS		=	includes/fdf.h $(LIBFDF)/includes/libfdf.h
 
-AR_LIB		=	$(LIB)/$(LIBFT)/$(LIBFT).a
-AR_LIB_DBG	=	$(LIB)/$(LIBFT)/$(LIBFT)_d.a
+AR_LIB		=	$(LIBFDF)/$(LIBFDF).a
+AR_LIB_DBG	=	$(LIBFDF)/$(LIBFDF)_d.a
 
 # Source files
 # ****************************************************************************
@@ -61,12 +60,12 @@ $(DIR_OBJS)/%.o:	$(DIR_SRCS)/%.c $(DEPS) | $(DIR_OBJS)
 
 $(NAME): $(OBJS) $(AR_LIB)
 	@printf "$(_BLUE)\nCompiled source files\n"
-	@$(CC) $(CFLAGS) $(OBJS) $(LIBFTFLAGS) $(MLXFLAGS) -o $@
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBFDFFLAGS) $(MLXFLAGS) -o $@
 	@printf "$(_GREEN)Finish compiling $(NAME)!$(_END)\n"
 
 $(NAME_DBG): $(OBJS) $(AR_LIB_DBG)
 	@printf "$(_BLUE)\nCompiled source files\n"
-	@$(CC) $(CFLAGS) $(OBJS) $(LIBFTFLAGSD) $(MLXFLAGS) -o $@
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBFDFFLAGSD) $(MLXFLAGS) -o $@
 	@printf "$(_GREEN)Finish compiling $(NAME)!$(_END)\n"
 
 compile:
@@ -77,22 +76,22 @@ debug: header
 
 clean:	header
 	@printf "$(_YELLOW)Removing object files ...$(_END)\n"
-	@make clean -C $(LIB)/$(LIBFT)
+	@make clean -C $(LIBFDF)
 	@rm -rf $(DIR_OBJS) $(DIR_OBJSD)
 	@rm -fr *.dSYM
 
 fclean:	clean
 	@printf "$(_RED)Removing Executable ...$(_END)\n"
-	@make fclean -C $(LIB)/$(LIBFT)
+	@make fclean -C $(LIBFDF)
 	@rm -rf $(NAME) $(NAME_DBG)
 
 re:		header fclean all
 
 $(AR_LIB):
-	@$(MAKE) -C $(LIB)/libft
+	@$(MAKE) -C libfdf
 
 $(AR_LIB_DBG):
-	@$(MAKE) debug -C $(LIB)/libft
+	@$(MAKE) debug -C libfdf
 
 $(DIR_OBJS):
 	@mkdir -p $(DIR_OBJS)
