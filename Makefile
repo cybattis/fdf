@@ -20,7 +20,7 @@ MINILIBX	=	mlx
 
 CC 				=	gcc
 CFLAGS			=	-Wall -Werror -Wextra -O2 $(DBGFLAGS) $(INCLUDE)
-DBGFLAGS		=	-g3 -fsanitize=address
+# DBGFLAGS		=	-g3 -fsanitize=address
 LIBFDFFLAGS		=	-L $(LIBFDF) -lfdf
 LIBFDFFLAGSD	=	-L $(LIBFDF) -lfdf_d
 
@@ -44,7 +44,7 @@ AR_LIB_DBG	=	$(LIBFDF)/$(LIBFDF)_d.a
 DIR_SRCS	=	src
 SRCSFILE	=	main.c colors.c init.c draw.c draw_line.c draw_circle.c		\
 				utils.c	hooks.c	map_parsing.c projection.c world_matrix.c	\
-				rotation_matrix.c utils_print.c strtrim.c
+				rotation_matrix.c strtrim.c
 
 SRCS		=	$(addprefix $(DIR_SRCS)/, $(SRCSFILE))
 
@@ -72,6 +72,8 @@ $(NAME_DBG): $(OBJS) $(AR_LIB_DBG)
 
 compile:
 	@$(MAKE) $(NAME) -C .
+
+bonus: all
 
 debug: header
 	@$(MAKE) $(NAME_DBG) -C .

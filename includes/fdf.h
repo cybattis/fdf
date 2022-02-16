@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:33:14 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/16 12:20:03 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/16 13:44:16 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,12 +169,5 @@ int			get_t(int trgb);
 int			get_r(int trgb);
 int			get_g(int trgb);
 int			get_b(int trgb);
-
-/* utils_print.c */
-int			print_color(int trgb);
-void		ft_print_map(t_map	**map, t_vec2 size);
-void		print_vec2(t_vec2 v);
-void		print_vec3(t_vec3 v);
-void		print_matrix44(t_matrix matrix);
 
 #endif
