@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:33:14 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/16 13:44:16 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/16 22:38:32 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,9 +159,9 @@ void		error_close_app(t_app *fdf);
 void		ft_free_2d(void **ptr, int i);
 
 /* strtrim.c */
-void		strtrim(char *str);
-char		*strtriml(char *str);
-void		strtrimr(char *str);
+char		*ft_trim(char *str);
+char		*ft_triml(char *str);
+char		*ft_trimr(char *str);
 
 /* colors.c */
 int			create_trgb(int t, int r, int g, int b);

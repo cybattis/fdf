@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 17:32:25 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/15 22:50:03 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/16 22:38:49 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	get_matrix_size(char *path, t_app *fdf)
 	line = ft_get_next_line(fd);
 	while (line != NULL)
 	{
-		strtrimr(line);
+		ft_trimr(line);
 		fdf->map_size.x = get_size_x(line);
 		fdf->map_size.y++;
 		free(line);
