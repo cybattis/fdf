@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 10:47:15 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/15 22:59:37 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/18 15:30:17 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ t_app	*init_app(int argc, char *path)
 
 void	init_transformation(t_app *fdf)
 {
-	fdf->t.scale = 10;
-	fdf->t.rotation = vec3(238, 23, 0);
+	fdf->t.scale = 0.1;
+	fdf->t.rotation = vec3(255, 17, -43);
 	fdf->t.translation = vec3(0.5, 0, -0.5);
 }
 

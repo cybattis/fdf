@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:33:14 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/18 11:32:39 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/18 15:08:12 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ void		init_transformation(t_app *fdf);
 /* projection.c */
 void		map_projection(t_app *fdf, t_matrix *projection);
 void		animation(t_app *fdf);
+void		init_scale(t_app *fdf);
 
 /* matrix.c */
 void		world_matrix(t_transform t, t_matrix *world);

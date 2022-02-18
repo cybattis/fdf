@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 15:35:23 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/16 13:43:59 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/18 14:22:19 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ void	world_matrix(t_transform t, t_matrix *world)
 	scale_matrix(&scale, t.scale);
 	rotation_matrix(&rotation, t.rotation);
 	translation_matrix(&translation, t.translation);
-	matrix_mult44(scale.m, rotation.m, &p_sr);
-	matrix_mult44(p_sr.m, translation.m, world);
+	matrix_mult44(translation.m, rotation.m, &p_sr);
+	matrix_mult44(p_sr.m, scale.m, world);
 }
 
 static void	translation_matrix(t_matrix *matrix, t_vec3 translation)
