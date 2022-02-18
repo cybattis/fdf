@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 17:57:26 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/15 22:51:48 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/18 11:38:40 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	key_hooks(int keycode, t_app *fdf)
 	else if (keycode == KEY_W || keycode == KEY_S || keycode == KEY_A
 		|| keycode == KEY_D)
 		translation(keycode, fdf);
-	else if (keycode == KEY_R || keycode == KEY_SPACE)
+	else if (keycode == KEY_R || keycode == KEY_SPACE || keycode == KEY_F)
 		option(keycode, fdf);
 	else if (keycode == KEY_ESC)
 		close_app(fdf);
@@ -83,14 +83,11 @@ static int	rotation(int keycode, t_app *fdf)
 static int	option(int keycode, t_app *fdf)
 {
 	if (keycode == KEY_SPACE)
-	{
-		if (fdf->flags == 0)
-			fdf->flags = ANIM_ON;
-		else
-			fdf->flags = ANIM_OFF;
-	}
+		fdf->flags ^= ANIM_ON;
 	else if (keycode == KEY_R)
 		init_transformation(fdf);
+	else if (keycode == KEY_F)
+		fdf->flags ^= DRAW_OG;
 	return (0);
 }
 

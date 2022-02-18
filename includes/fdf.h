@@ -6,7 +6,7 @@
 /*   By: cybattis <cybattis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:33:14 by cybattis          #+#    #+#             */
-/*   Updated: 2022/02/16 22:38:32 by cybattis         ###   ########.fr       */
+/*   Updated: 2022/02/18 11:32:39 by cybattis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,9 @@
 # define DB_MATRIX	0
 # define DB_COLOR	0
 
-# define ANIM_OFF	0
-# define ANIM_ON	1
+# define NO_FLAGS	0
+# define ANIM_ON	2
+# define DRAW_OG	4
 
 typedef struct s_map {
 	t_vec3	v;
